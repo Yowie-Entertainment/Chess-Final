@@ -21,11 +21,10 @@ public class GameWindow {
     
     
     
-    public GameWindow(String blackName, String whiteName, int hh, 
-            int mm, int ss) {
+    public GameWindow(String blackName, String whiteName) {
         
-        blackClock = new Clock(hh, ss, mm);
-        whiteClock = new Clock(hh, ss, mm);
+     //   blackClock = new Clock(hh, ss, mm);
+     //   whiteClock = new Clock(hh, ss, mm);
         
         gameWindow = new JFrame("Chess");
         
@@ -43,7 +42,7 @@ public class GameWindow {
         gameWindow.setLayout(new BorderLayout(20,20));
        
         // Game Data window
-        JPanel gameData = gameDataPanel(blackName, whiteName, hh, mm, ss);
+        JPanel gameData = gameDataPanel(blackName, whiteName);
         gameData.setSize(gameData.getPreferredSize());
         gameWindow.add(gameData, BorderLayout.NORTH);
         
@@ -64,8 +63,7 @@ public class GameWindow {
     
 // Helper function to create data panel
     
-    private JPanel gameDataPanel(final String bn, final String wn, 
-            final int hh, final int mm, final int ss) {
+    private JPanel gameDataPanel(final String bn, final String wn) {
         
         JPanel gameData = new JPanel();
         gameData.setLayout(new GridLayout(3,2,0,0));
@@ -89,14 +87,15 @@ public class GameWindow {
         
         // CLOCKS
         
-        final JLabel bTime = new JLabel(blackClock.getTime());
-        final JLabel wTime = new JLabel(whiteClock.getTime());
+        //final JLabel bTime = new JLabel(blackClock.getTime());
+        //final JLabel wTime = new JLabel(whiteClock.getTime());
         
-        bTime.setHorizontalAlignment(JLabel.CENTER);
-        bTime.setVerticalAlignment(JLabel.CENTER);
-        wTime.setHorizontalAlignment(JLabel.CENTER);
-        wTime.setVerticalAlignment(JLabel.CENTER);
+        //bTime.setHorizontalAlignment(JLabel.CENTER);
+       // bTime.setVerticalAlignment(JLabel.CENTER);
+       // wTime.setHorizontalAlignment(JLabel.CENTER);
+        //wTime.setVerticalAlignment(JLabel.CENTER);
         
+        /*
         if (!(hh == 0 && mm == 0 && ss == 0)) {
             timer = new Timer(1000, null);
             timer.addActionListener(new ActionListener() {
@@ -150,7 +149,7 @@ public class GameWindow {
         
         gameData.add(wTime);
         gameData.add(bTime);
-        
+        */
         gameData.setPreferredSize(gameData.getMinimumSize());
         
         return gameData;
@@ -218,7 +217,7 @@ public class GameWindow {
     
     public void checkmateOccurred (int c) {
         if (c == 0) {
-            if (timer != null) timer.stop();
+            //if (timer != null) timer.stop();
             int n = JOptionPane.showConfirmDialog(
                     gameWindow,
                     "White wins by checkmate! Set up a new game? \n" +
@@ -231,7 +230,7 @@ public class GameWindow {
                 gameWindow.dispose();
             }
         } else {
-            if (timer != null) timer.stop();
+            //if (timer != null) timer.stop();
             int n = JOptionPane.showConfirmDialog(
                     gameWindow,
                     "Black wins by checkmate! Set up a new game? \n" +

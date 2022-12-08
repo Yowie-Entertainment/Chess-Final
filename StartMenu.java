@@ -66,7 +66,7 @@ public class StartMenu implements Runnable {
         
         final JTextField whiteInput = new JTextField("White", 10);
         whitePanel.add(whiteInput);
-        
+        /*
         // Timer settings
         final String[] minSecInts = new String[60];
         for (int i = 0; i < 60; i++) {
@@ -97,7 +97,7 @@ public class StartMenu implements Runnable {
         timerSettings.add(Box.createVerticalGlue());
         
         components.add(timerSettings);
-        
+    */
         // Buttons
         Box buttons = Box.createHorizontalBox();
         final JButton quit = new JButton("Quit");
@@ -128,11 +128,11 @@ public class StartMenu implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 String bn = blackInput.getText();
                 String wn = whiteInput.getText();
-                int hh = Integer.parseInt((String) hours.getSelectedItem());
-                int mm = Integer.parseInt((String) minutes.getSelectedItem());
-                int ss = Integer.parseInt((String) seconds.getSelectedItem());
+                //int hh = Integer.parseInt((String) hours.getSelectedItem());
+                //int mm = Integer.parseInt((String) minutes.getSelectedItem());
+                //int ss = Integer.parseInt((String) seconds.getSelectedItem());
                 
-                new GameWindow(bn, wn, hh, mm, ss);
+                new GameWindow(bn, wn);
                 startWindow.dispose();
             }
           });
