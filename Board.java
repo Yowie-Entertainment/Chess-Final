@@ -71,10 +71,10 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
         initializePieces();
 
-        this.setPreferredSize(new Dimension(400, 400));
-        this.setMaximumSize(new Dimension(400, 400));
+        this.setPreferredSize(new Dimension(1040, 1040));
+        this.setMaximumSize(new Dimension(1040, 1040));
         this.setMinimumSize(this.getPreferredSize());
-        this.setSize(new Dimension(400, 400));
+        this.setSize(new Dimension(1040, 1040));
 
         whiteTurn = true;
 

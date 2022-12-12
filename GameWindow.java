@@ -12,8 +12,6 @@ import javax.swing.*;
 public class GameWindow {
     private JFrame gameWindow;
     
-    public Clock blackClock;
-    public Clock whiteClock;
     
     private Timer timer;
     
@@ -22,11 +20,8 @@ public class GameWindow {
     
     
     public GameWindow(String blackName, String whiteName) {
-        
-     //   blackClock = new Clock(hh, ss, mm);
-     //   whiteClock = new Clock(hh, ss, mm);
-        
-        gameWindow = new JFrame("Chess");
+
+        gameWindow = new JFrame("Super Chess");
         
 
         try {
@@ -36,15 +31,15 @@ public class GameWindow {
             System.out.println("Game file wp.png not found");
         }
 
-        gameWindow.setLocation(100, 100);
+        gameWindow.setLocation(450, 0);
         
         
         gameWindow.setLayout(new BorderLayout(20,20));
        
         // Game Data window
-        JPanel gameData = gameDataPanel(blackName, whiteName);
-        gameData.setSize(gameData.getPreferredSize());
-        gameWindow.add(gameData, BorderLayout.NORTH);
+        //JPanel gameData = gameDataPanel(blackName, whiteName);
+        //gameData.setSize(gameData.getPreferredSize());
+        //gameWindow.add(gameData, BorderLayout.NORTH);
         
         this.board = new Board(this);
         
@@ -175,6 +170,7 @@ public class GameWindow {
             }
           });
         
+        /* 
         final JButton nGame = new JButton("New game");
         
         nGame.addActionListener(new ActionListener() {
@@ -205,9 +201,10 @@ public class GameWindow {
                         JOptionPane.PLAIN_MESSAGE);
             }
           });
-        
-        buttons.add(instr);
-        buttons.add(nGame);
+        */
+
+        //buttons.add(instr);
+        //buttons.add(nGame);
         buttons.add(quit);
         
         buttons.setPreferredSize(buttons.getMinimumSize());
