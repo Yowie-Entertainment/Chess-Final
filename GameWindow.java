@@ -37,7 +37,7 @@ public class GameWindow {
             System.out.println("Game file wp.png not found");
         }
 
-        gameWindow.setLocation(100, 100);
+        gameWindow.setLocation(400, 0);
         
         
         gameWindow.setLayout(new BorderLayout(20,20));
