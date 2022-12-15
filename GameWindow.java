@@ -12,6 +12,8 @@ import javax.swing.*;
 public class GameWindow {
     private JFrame gameWindow;
     
+    public Clock blackClock;
+    public Clock whiteClock;
     
     private Timer timer;
     
@@ -19,9 +21,13 @@ public class GameWindow {
     
     
     
-    public GameWindow(String blackName, String whiteName) {
-
-        gameWindow = new JFrame("Super Chess");
+    public GameWindow(String blackName, String whiteName, int hh, 
+            int mm, int ss) {
+        
+        blackClock = new Clock(hh, ss, mm);
+        whiteClock = new Clock(hh, ss, mm);
+        
+        gameWindow = new JFrame("Chess");
         
 
         try {
@@ -31,15 +37,15 @@ public class GameWindow {
             System.out.println("Game file wp.png not found");
         }
 
-        gameWindow.setLocation(450, 0);
+        gameWindow.setLocation(100, 100);
         
         
         gameWindow.setLayout(new BorderLayout(20,20));
        
         // Game Data window
-        //JPanel gameData = gameDataPanel(blackName, whiteName);
-        //gameData.setSize(gameData.getPreferredSize());
-        //gameWindow.add(gameData, BorderLayout.NORTH);
+        JPanel gameData = gameDataPanel(blackName, whiteName, hh, mm, ss);
+        gameData.setSize(gameData.getPreferredSize());
+        gameWindow.add(gameData, BorderLayout.NORTH);
         
         this.board = new Board(this);
         
@@ -58,7 +64,8 @@ public class GameWindow {
     
 // Helper function to create data panel
     
-    private JPanel gameDataPanel(final String bn, final String wn) {
+    private JPanel gameDataPanel(final String bn, final String wn, 
+            final int hh, final int mm, final int ss) {
         
         JPanel gameData = new JPanel();
         gameData.setLayout(new GridLayout(3,2,0,0));
@@ -82,15 +89,14 @@ public class GameWindow {
         
         // CLOCKS
         
-        //final JLabel bTime = new JLabel(blackClock.getTime());
-        //final JLabel wTime = new JLabel(whiteClock.getTime());
+        final JLabel bTime = new JLabel(blackClock.getTime());
+        final JLabel wTime = new JLabel(whiteClock.getTime());
         
-        //bTime.setHorizontalAlignment(JLabel.CENTER);
-       // bTime.setVerticalAlignment(JLabel.CENTER);
-       // wTime.setHorizontalAlignment(JLabel.CENTER);
-        //wTime.setVerticalAlignment(JLabel.CENTER);
+        bTime.setHorizontalAlignment(JLabel.CENTER);
+        bTime.setVerticalAlignment(JLabel.CENTER);
+        wTime.setHorizontalAlignment(JLabel.CENTER);
+        wTime.setVerticalAlignment(JLabel.CENTER);
         
-        /*
         if (!(hh == 0 && mm == 0 && ss == 0)) {
             timer = new Timer(1000, null);
             timer.addActionListener(new ActionListener() {
@@ -144,7 +150,7 @@ public class GameWindow {
         
         gameData.add(wTime);
         gameData.add(bTime);
-        */
+        
         gameData.setPreferredSize(gameData.getMinimumSize());
         
         return gameData;
@@ -170,7 +176,6 @@ public class GameWindow {
             }
           });
         
-        /* 
         final JButton nGame = new JButton("New game");
         
         nGame.addActionListener(new ActionListener() {
@@ -201,10 +206,9 @@ public class GameWindow {
                         JOptionPane.PLAIN_MESSAGE);
             }
           });
-        */
-
-        //buttons.add(instr);
-        //buttons.add(nGame);
+        
+        buttons.add(instr);
+        buttons.add(nGame);
         buttons.add(quit);
         
         buttons.setPreferredSize(buttons.getMinimumSize());
@@ -214,7 +218,7 @@ public class GameWindow {
     
     public void checkmateOccurred (int c) {
         if (c == 0) {
-            //if (timer != null) timer.stop();
+            if (timer != null) timer.stop();
             int n = JOptionPane.showConfirmDialog(
                     gameWindow,
                     "White wins by checkmate! Set up a new game? \n" +
@@ -227,7 +231,7 @@ public class GameWindow {
                 gameWindow.dispose();
             }
         } else {
-            //if (timer != null) timer.stop();
+            if (timer != null) timer.stop();
             int n = JOptionPane.showConfirmDialog(
                     gameWindow,
                     "Black wins by checkmate! Set up a new game? \n" +
