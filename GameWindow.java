@@ -15,17 +15,16 @@ public class GameWindow {
     public Clock blackClock;
     public Clock whiteClock;
     
-    private Timer timer;
+    //private Timer timer;
     
     private Board board;
     
     
     
-    public GameWindow(String blackName, String whiteName, int hh, 
-            int mm, int ss) {
+    public GameWindow(String blackName, String whiteName) {
         
-        blackClock = new Clock(hh, ss, mm);
-        whiteClock = new Clock(hh, ss, mm);
+        //blackClock = new Clock(hh, ss, mm);
+        //whiteClock = new Clock(hh, ss, mm);
         
         gameWindow = new JFrame("Chess");
         
@@ -43,7 +42,7 @@ public class GameWindow {
         gameWindow.setLayout(new BorderLayout(20,20));
        
         // Game Data window
-        JPanel gameData = gameDataPanel(blackName, whiteName, hh, mm, ss);
+        JPanel gameData = gameDataPanel(blackName, whiteName);
         gameData.setSize(gameData.getPreferredSize());
         gameWindow.add(gameData, BorderLayout.NORTH);
         
@@ -64,13 +63,13 @@ public class GameWindow {
     
 // Helper function to create data panel
     
-    private JPanel gameDataPanel(final String bn, final String wn, 
-            final int hh, final int mm, final int ss) {
+    private JPanel gameDataPanel(final String bn, final String wn
+            /* final int hh, final int mm, final int ss*/ ) {
         
         JPanel gameData = new JPanel();
         gameData.setLayout(new GridLayout(3,2,0,0));
         
-        
+        /*
         // PLAYER NAMES
         
         JLabel w = new JLabel(wn);
@@ -150,7 +149,7 @@ public class GameWindow {
         
         gameData.add(wTime);
         gameData.add(bTime);
-        
+        */
         gameData.setPreferredSize(gameData.getMinimumSize());
         
         return gameData;
@@ -170,7 +169,7 @@ public class GameWindow {
                         "Confirm quit", JOptionPane.YES_NO_OPTION);
                 
                 if (n == JOptionPane.YES_OPTION) {
-                    if (timer != null) timer.stop();
+                    //if (timer != null) timer.stop();
                     gameWindow.dispose();
                 }
             }
@@ -218,7 +217,7 @@ public class GameWindow {
     
     public void checkmateOccurred (int c) {
         if (c == 0) {
-            if (timer != null) timer.stop();
+            //if (timer != null) timer.stop();
             int n = JOptionPane.showConfirmDialog(
                     gameWindow,
                     "White wins by checkmate! Set up a new game? \n" +
@@ -231,7 +230,7 @@ public class GameWindow {
                 gameWindow.dispose();
             }
         } else {
-            if (timer != null) timer.stop();
+            //if (timer != null) timer.stop();
             int n = JOptionPane.showConfirmDialog(
                     gameWindow,
                     "Black wins by checkmate! Set up a new game? \n" +
