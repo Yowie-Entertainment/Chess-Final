@@ -12,3 +12,4 @@ public class Game implements Runnable {
 //TODO: Comment / revariable / reformat
 //TODO: Fix checkmate
 //TODO: rescale images
+//TODO: piece sticking to mouse when drag

@@ -221,13 +221,14 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
-    @Override
+    
     public void mouseDragged(MouseEvent e) {
         currX = e.getX() - 24;
         currY = e.getY() - 24;
 
         repaint();
     }
+    
 
     // Irrelevant methods, do nothing for these mouse behaviors
     @Override

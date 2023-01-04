@@ -12,11 +12,8 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 
 
-/**
- * Component of the Chess game that detects check mates in the game.
- * 
- * 
- *
+/*
+ Component of the Chess game that detects check mates in the game.
  */
 public class CheckmateDetector {
     private Board b;
@@ -68,8 +65,8 @@ public class CheckmateDetector {
         update();
     }
     
-    /**
-     * Updates the object with the current situation of the game.
+    /*
+      Updates the object with the current situation of the game.
      */
     public void update() {
         // Iterators through pieces
@@ -148,7 +145,9 @@ public class CheckmateDetector {
         if (bMoves.get(sq).isEmpty()) {
             movableSquares.addAll(squares);
             return false;
-        } else return true;
+        } else {
+            return true;
+        }
     }
     
     /**
@@ -158,7 +157,10 @@ public class CheckmateDetector {
     public boolean blackCheckMated() {
         boolean checkmate = true;
         // Check if black is in check
-        if (!this.blackInCheck()) return false;
+        if (!this.blackInCheck()) {
+            return false;
+        }
+        
         
         // If yes, check if king can evade
         if (canEvade(wMoves, bk)) checkmate = false;
