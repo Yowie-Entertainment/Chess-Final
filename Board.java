@@ -152,7 +152,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             if ((currPiece.getColor() == 1 && whiteTurn)
                     || (currPiece.getColor() == 0 && !whiteTurn)) {
                 final Image i = currPiece.getImage();
-                g.drawImage(i, currX, currY, null);
+                g.drawImage(i, currX, currY, 130, 130, null);
             }
         }
     }
