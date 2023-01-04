@@ -29,8 +29,12 @@ public abstract class Piece {
         Piece occup = fin.getOccupyingPiece();
         
         if (occup != null) {
-            if (occup.getColor() == this.color) return false;
-            else fin.capture(this);
+            if (occup.getColor() == this.color) {
+                return false;
+            }
+            else {
+                fin.capture(this);
+            }
         }
         
         currentSquare.removePiece();
@@ -72,7 +76,10 @@ public abstract class Piece {
             if (board[i][x].isOccupied()) {
                 if (board[i][x].getOccupyingPiece().getColor() != this.color) {
                     lastYabove = i;
-                } else lastYabove = i + 1;
+                } 
+                else    {
+                    lastYabove = i + 1;
+                }
             }
         }
 
@@ -121,11 +128,14 @@ public abstract class Piece {
             if (board[yNW][xNW].isOccupied()) {
                 if (board[yNW][xNW].getOccupyingPiece().getColor() == this.color) {
                     break;
-                } else {
+                } 
+                else {
                     diagOccup.add(board[yNW][xNW]);
                     break;
                 }
-            } else {
+            } 
+            
+            else {
                 diagOccup.add(board[yNW][xNW]);
                 yNW--;
                 xNW--;
@@ -136,11 +146,14 @@ public abstract class Piece {
             if (board[ySW][xSW].isOccupied()) {
                 if (board[ySW][xSW].getOccupyingPiece().getColor() == this.color) {
                     break;
-                } else {
+                } 
+                else {
                     diagOccup.add(board[ySW][xSW]);
                     break;
                 }
-            } else {
+            } 
+            
+            else {
                 diagOccup.add(board[ySW][xSW]);
                 ySW++;
                 xSW--;

@@ -9,3 +9,6 @@ public class Game implements Runnable {
         SwingUtilities.invokeLater(new Game());
     }
 }
+//TODO: Comment / revariable / reformat
+//TODO: Fix checkmate
+//TODO: rescale images
