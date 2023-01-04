@@ -16,14 +16,14 @@ public class King extends Piece {
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();
         
-        for (int i = 1; i > -2; i--) {
-            for (int k = 1; k > -2; k--) {
-                if(!(i == 0 && k == 0)) {
+        for (int index = 1; index > -2; index--) {
+            for (int index2 = 1; index2 > -2; index2--) {
+                if(!(index == 0 && index2 == 0)) {
                     try {
-                        if(!board[y + k][x + i].isOccupied() || 
-                                board[y + k][x + i].getOccupyingPiece().getColor() 
+                        if(!board[y + index2][x + index].isOccupied() || 
+                                board[y + index2][x + index].getOccupyingPiece().getColor() 
                                 != this.getColor()) {
-                            legalMoves.add(board[y + k][x + i]);
+                            legalMoves.add(board[y + index2][x + index]);
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         continue;
