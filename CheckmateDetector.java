@@ -200,10 +200,10 @@ public class CheckmateDetector {
     }
     
     /*
-     * Helper method to determine if the king can evade the check.
-     * Gives a false positive if the king can capture the checking piece.
+      Helper method to determine if the king can evade the check.
+      Gives a false positive if the king can capture the checking piece.
      */
-    private boolean canEvade(Map<Square,List<Piece>> tMoves, King tKing) {
+    private boolean canEvade(Map<Square, List<Piece>> tMoves, King tKing) {
         boolean evade = false;
         List<Square> kingsMoves = tKing.getLegalMoves(b);
         Iterator<Square> iterator = kingsMoves.iterator();

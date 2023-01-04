@@ -13,3 +13,4 @@ public class Game implements Runnable {
 //TODO: Fix checkmate
 //TODO: rescale images
 //TODO: piece sticking to mouse when drag
+//TODO: Connect title screen
