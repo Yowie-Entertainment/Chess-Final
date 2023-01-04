@@ -447,8 +447,12 @@ public class CheckmateDetector {
         p.move(sq);
         update();
         
-        if (p.getColor() == 0 && blackInCheck()) movetest = false;
-        else if (p.getColor() == 1 && whiteInCheck()) movetest = false;
+        if (p.getColor() == 0 && blackInCheck()) {
+            movetest = false;
+        }
+        else if (p.getColor() == 1 && whiteInCheck()){ 
+             movetest = false; 
+        }
         
         p.move(init);
         if (c != null) sq.put(c);
