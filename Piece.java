@@ -63,7 +63,7 @@ public abstract class Piece {
         int x = currentSquare.getX();
         int y = currentSquare.getY();
         
-        g.drawImage(this.img, x, y, 130, 130,  null);
+        g.drawImage(this.img, x + 10, y + 10, 100, 100,  null);
     }
     
     public int[] getLinearOccupations(Square[][] board, int x, int y) {
