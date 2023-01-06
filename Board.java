@@ -69,7 +69,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             }
         }
 
-        initializePieces();
+        createPieces();
 
         this.setPreferredSize(new Dimension(1040, 1040));
         this.setMaximumSize(new Dimension(1040, 1040));
@@ -80,7 +80,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     }
 
-    private void initializePieces() {
+    private void createPieces() {
     	
         for (int x = 0; x < 8; x++) {
             board[1][x].put(new Pawn(0, board[1][x], blackPawn));
@@ -225,28 +225,31 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     
     public void mouseDragged(MouseEvent e) {
+        
         currX = e.getX() - 24;
         currY = e.getY() - 24;
 
         repaint();
+        
     }
     
 
-    // Irrelevant methods, do nothing for these mouse behaviors
-    @Override
+ 
+
     public void mouseMoved(MouseEvent e) {
     }
 
-    @Override
+
     public void mouseClicked(MouseEvent e) {
     }
 
-    @Override
+
     public void mouseEntered(MouseEvent e) {
     }
 
-    @Override
+ 
     public void mouseExited(MouseEvent e) {
     }
+    
 
 }
