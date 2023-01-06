@@ -11,29 +11,27 @@ import java.util.List;
 
 import javax.swing.*;
 
-@SuppressWarnings("serial")
+
 public class Board extends JPanel implements MouseListener, MouseMotionListener {
-	// Resource location constants for piece images
-    private static final String RESOURCES_WBISHOP_PNG = "wbishop.png";
-	private static final String RESOURCES_BBISHOP_PNG = "bbishop.png";
-	private static final String RESOURCES_WKNIGHT_PNG = "wknight.png";
-	private static final String RESOURCES_BKNIGHT_PNG = "bknight.png";
-	private static final String RESOURCES_WROOK_PNG = "wrook.png";
-	private static final String RESOURCES_BROOK_PNG = "brook.png";
-	private static final String RESOURCES_WKING_PNG = "wking.png";
-	private static final String RESOURCES_BKING_PNG = "bking.png";
-	private static final String RESOURCES_BQUEEN_PNG = "bqueen.png";
-	private static final String RESOURCES_WQUEEN_PNG = "wqueen.png";
-	private static final String RESOURCES_WPAWN_PNG = "wpawn.png";
-	private static final String RESOURCES_BPAWN_PNG = "bpawn.png";
+
+    private String whiteBishop = "wbishop.png";
+	private String blackBishop = "bbishop.png";
+	private String whiteKnight = "wknight.png";
+	private String blackKnight = "bknight.png";
+	private String whiteRook = "wrook.png";
+	private String blackRook = "brook.png";
+	private String whiteKing = "wking.png";
+	private String blackKing = "bking.png";
+	private String blackQueen = "bqueen.png";
+	private String whiteQueen = "wqueen.png";
+	private String whitePawn = "wpawn.png";
+	private String blackPawn = "bpawn.png";
 	
-	// Logical and graphical representations of board
-	private final Square[][] board;
-    private final GameWindow g;
+	private Square[][] board;
+    private GameWindow g;
     
-    // List of pieces and whether they are movable
-    public final LinkedList<Piece> Bpieces;
-    public final LinkedList<Piece> Wpieces;
+    public LinkedList<Piece> Bpieces;
+    public LinkedList<Piece> Wpieces;
     public List<Square> movable;
     
     private boolean whiteTurn;
@@ -42,10 +40,10 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private int currX;
     private int currY;
     
-    private CheckmateDetector cmd;
+    private CheckmateCheck cmd;
     
-    public Board(GameWindow g) {
-        this.g = g;
+    public Board(GameWindow game) {
+        g = game;
         board = new Square[8][8];
         Bpieces = new LinkedList<Piece>();
         Wpieces = new LinkedList<Piece>();
@@ -62,7 +60,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 if ((xMod == 0 && yMod == 0) || (xMod == 1 && yMod == 1)) {
                     board[x][y] = new Square(this, 1, y, x);
                     this.add(board[x][y]);
-                } else {
+                } 
+                
+                else {
                     board[x][y] = new Square(this, 0, y, x);
                     this.add(board[x][y]);
                 }
@@ -83,32 +83,32 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private void initializePieces() {
     	
         for (int x = 0; x < 8; x++) {
-            board[1][x].put(new Pawn(0, board[1][x], RESOURCES_BPAWN_PNG));
-            board[6][x].put(new Pawn(1, board[6][x], RESOURCES_WPAWN_PNG));
+            board[1][x].put(new Pawn(0, board[1][x], blackPawn));
+            board[6][x].put(new Pawn(1, board[6][x], whitePawn));
         }
         
-        board[7][3].put(new Queen(1, board[7][3], RESOURCES_WQUEEN_PNG));
-        board[0][3].put(new Queen(0, board[0][3], RESOURCES_BQUEEN_PNG));
+        board[7][3].put(new Queen(1, board[7][3], whiteQueen));
+        board[0][3].put(new Queen(0, board[0][3], blackQueen));
         
-        King bk = new King(0, board[0][4], RESOURCES_BKING_PNG);
-        King wk = new King(1, board[7][4], RESOURCES_WKING_PNG);
+        King bk = new King(0, board[0][4], blackKing);
+        King wk = new King(1, board[7][4], whiteKing);
         board[0][4].put(bk);
         board[7][4].put(wk);
 
-        board[0][0].put(new Rook(0, board[0][0], RESOURCES_BROOK_PNG));
-        board[0][7].put(new Rook(0, board[0][7], RESOURCES_BROOK_PNG));
-        board[7][0].put(new Rook(1, board[7][0], RESOURCES_WROOK_PNG));
-        board[7][7].put(new Rook(1, board[7][7], RESOURCES_WROOK_PNG));
+        board[0][0].put(new Rook(0, board[0][0], blackRook));
+        board[0][7].put(new Rook(0, board[0][7], blackRook));
+        board[7][0].put(new Rook(1, board[7][0], whiteRook));
+        board[7][7].put(new Rook(1, board[7][7], whiteRook));
 
-        board[0][1].put(new Knight(0, board[0][1], RESOURCES_BKNIGHT_PNG));
-        board[0][6].put(new Knight(0, board[0][6], RESOURCES_BKNIGHT_PNG));
-        board[7][1].put(new Knight(1, board[7][1], RESOURCES_WKNIGHT_PNG));
-        board[7][6].put(new Knight(1, board[7][6], RESOURCES_WKNIGHT_PNG));
+        board[0][1].put(new Knight(0, board[0][1], blackKnight));
+        board[0][6].put(new Knight(0, board[0][6], blackKnight));
+        board[7][1].put(new Knight(1, board[7][1], whiteKnight));
+        board[7][6].put(new Knight(1, board[7][6], whiteKnight));
 
-        board[0][2].put(new Bishop(0, board[0][2], RESOURCES_BBISHOP_PNG));
-        board[0][5].put(new Bishop(0, board[0][5], RESOURCES_BBISHOP_PNG));
-        board[7][2].put(new Bishop(1, board[7][2], RESOURCES_WBISHOP_PNG));
-        board[7][5].put(new Bishop(1, board[7][5], RESOURCES_WBISHOP_PNG));
+        board[0][2].put(new Bishop(0, board[0][2], blackBishop));
+        board[0][5].put(new Bishop(0, board[0][5], blackBishop));
+        board[7][2].put(new Bishop(1, board[7][2], whiteBishop));
+        board[7][5].put(new Bishop(1, board[7][5], whiteBishop));
         
         
         for(int y = 0; y < 2; y++) {
@@ -118,7 +118,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             }
         }
         
-        cmd = new CheckmateDetector(this, Wpieces, Bpieces, wk, bk);
+        cmd = new CheckmateCheck(this, Wpieces, Bpieces, wk, bk);
     }
 
     public Square[][] getSquareArray() {
@@ -180,11 +180,13 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         Square sq = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
         if (currPiece != null) {
-            if (currPiece.getColor() == 0 && whiteTurn)
+            if (currPiece.getColor() == 0 && whiteTurn) {
                 return;
-            if (currPiece.getColor() == 1 && !whiteTurn)
+            }
+            if (currPiece.getColor() == 1 && !whiteTurn) {
                 return;
-
+            }
+                
             List<Square> legalMoves = currPiece.getLegalMoves(this);
             movable = cmd.getAllowableSquares(whiteTurn);
 

@@ -3,7 +3,7 @@ import java.awt.Graphics;
 
 import javax.swing.*;
 
-@SuppressWarnings("serial")
+
 public class Square extends JComponent {
     private Board b;
     

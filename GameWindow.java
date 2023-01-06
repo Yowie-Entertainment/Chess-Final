@@ -3,7 +3,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,16 +15,13 @@ public class GameWindow {
     public Clock blackClock;
     public Clock whiteClock;
     
-    //private Timer timer;
     
     private Board board;
     
     
     
     public GameWindow(String blackName, String whiteName) {
-        
-        //blackClock = new Clock(hh, ss, mm);
-        //whiteClock = new Clock(hh, ss, mm);
+
         
         gameWindow = new JFrame("Chess");
         
@@ -61,95 +58,13 @@ public class GameWindow {
         gameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
-// Helper function to create data panel
+
     
-    private JPanel gameDataPanel(final String bn, final String wn
-            /* final int hh, final int mm, final int ss*/ ) {
+    private JPanel gameDataPanel(final String bn, final String wn) {
         
         JPanel gameData = new JPanel();
         gameData.setLayout(new GridLayout(3,2,0,0));
         
-        /*
-        // PLAYER NAMES
-        
-        JLabel w = new JLabel(wn);
-        JLabel b = new JLabel(bn);
-        
-        w.setHorizontalAlignment(JLabel.CENTER);
-        w.setVerticalAlignment(JLabel.CENTER);
-        b.setHorizontalAlignment(JLabel.CENTER);
-        b.setVerticalAlignment(JLabel.CENTER);
-        
-        w.setSize(w.getMinimumSize());
-        b.setSize(b.getMinimumSize());
-        
-        gameData.add(w);
-        gameData.add(b);
-        
-        // CLOCKS
-        
-        final JLabel bTime = new JLabel(blackClock.getTime());
-        final JLabel wTime = new JLabel(whiteClock.getTime());
-        
-        bTime.setHorizontalAlignment(JLabel.CENTER);
-        bTime.setVerticalAlignment(JLabel.CENTER);
-        wTime.setHorizontalAlignment(JLabel.CENTER);
-        wTime.setVerticalAlignment(JLabel.CENTER);
-        
-        if (!(hh == 0 && mm == 0 && ss == 0)) {
-            timer = new Timer(1000, null);
-            timer.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    boolean turn = board.getTurn();
-                    
-                    if (turn) {
-                        whiteClock.decr();
-                        wTime.setText(whiteClock.getTime());
-                        
-                        if (whiteClock.outOfTime()) {
-                            timer.stop();
-                            int n = JOptionPane.showConfirmDialog(
-                                    gameWindow,
-                                    bn + " wins by time! Play a new game? \n" +
-                                    "Choosing \"No\" quits the game.",
-                                    bn + " wins!",
-                                    JOptionPane.YES_NO_OPTION);
-                            
-                            if (n == JOptionPane.YES_OPTION) {
-                                new GameWindow(bn, wn, hh, mm, ss);
-                                gameWindow.dispose();
-                            } else gameWindow.dispose();
-                        }
-                    } else {
-                        blackClock.decr();
-                        bTime.setText(blackClock.getTime());
-                        
-                        if (blackClock.outOfTime()) {
-                            timer.stop();
-                            int n = JOptionPane.showConfirmDialog(
-                                    gameWindow,
-                                    wn + " wins by time! Play a new game? \n" +
-                                    "Choosing \"No\" quits the game.",
-                                    wn + " wins!",
-                                    JOptionPane.YES_NO_OPTION);
-                            
-                            if (n == JOptionPane.YES_OPTION) {
-                                new GameWindow(bn, wn, hh, mm, ss);
-                                gameWindow.dispose();
-                            } else gameWindow.dispose();
-                        }
-                    }
-                }
-            });
-            timer.start();
-        } else {
-            wTime.setText("Untimed game");
-            bTime.setText("Untimed game");
-        }
-        
-        gameData.add(wTime);
-        gameData.add(bTime);
-        */
         gameData.setPreferredSize(gameData.getMinimumSize());
         
         return gameData;
@@ -169,7 +84,6 @@ public class GameWindow {
                         "Confirm quit", JOptionPane.YES_NO_OPTION);
                 
                 if (n == JOptionPane.YES_OPTION) {
-                    //if (timer != null) timer.stop();
                     gameWindow.dispose();
                 }
             }
