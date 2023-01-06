@@ -23,7 +23,7 @@ public class StartMenu implements Runnable {
         // Set window properties
         startWindow.setLocationRelativeTo(null);
         startWindow.setResizable(false);
-        startWindow.setSize(1920, 1080);
+        startWindow.setSize(700, 600);
         
         Box components = Box.createVerticalBox();
         startWindow.add(components);
@@ -51,13 +51,13 @@ public class StartMenu implements Runnable {
 
       final JPanel titlePanel = new JPanel();
       components.add(titlePanel);
-      titlePanel.setBounds(0,0,1920,1080);
+      titlePanel.setBounds(0,0,700,600);
       titlePanel.setOpaque(false);
       components.add(titlePanel);
    
       JButton chessB = new JButton("CHESS");
       chessB.setFont(new Font("Book Antiqua", Font.PLAIN,82));      
-      chessB.setBounds((1920 / 2) - 200, (1080 / 2) - 50, 400, 100);
+      chessB.setBounds((700 / 2) - 200, (600 / 2) - 50, 400, 100);
       chessB.setBorder(null);
       chessB.setBackground(null);
       chessB.setFocusPainted(false);
@@ -109,7 +109,7 @@ public class StartMenu implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 // String bn = blackInput.getText();
                 // String wn = whiteInput.getText();
-                
+                System.out.println("check");
                 new GameWindow("black", "white");
                 startWindow.dispose();
             }
