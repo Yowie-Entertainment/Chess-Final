@@ -49,7 +49,8 @@ public class StartMenu implements Runnable {
 
 
 
-      PaintPanel titlePanel = new PaintPanel();
+      final JPanel titlePanel = new JPanel();
+      components.add(titlePanel);
       titlePanel.setBounds(0,0,1920,1080);
       titlePanel.setOpaque(false);
       components.add(titlePanel);
