@@ -61,7 +61,7 @@ public class StartMenu implements Runnable {
       chessB.setBorder(null);
       chessB.setBackground(null);
       chessB.setFocusPainted(false);
-      chessB.setForeground(Color.white);
+      chessB.setForeground(Color.BLACK);
       chessB.setVisible(true); 
       titlePanel.add(chessB);
       chessB.setContentAreaFilled(true);
