@@ -7,8 +7,8 @@ public class Rook extends Piece {
         super(color, initSq, img_file);
     }
 
-    @Override
-    public List<Square> getLegalMoves(Board b) {
+
+    public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
         Square[][] board = b.getSquareArray();
         

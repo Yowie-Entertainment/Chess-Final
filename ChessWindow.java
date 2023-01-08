@@ -9,28 +9,26 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
-public class GameWindow {
+public class ChessWindow {
     private JFrame gameWindow;
-    
-    public Clock blackClock;
-    public Clock whiteClock;
+
     
     
     private Board board;
     
     
     
-    public GameWindow(String blackName, String whiteName) {
+    public ChessWindow(String blackName, String whiteName) {
 
         
-        gameWindow = new JFrame("Chess");
+        gameWindow = new JFrame("Yowie Chess");
         
 
         try {
-            Image whiteImg = ImageIO.read(getClass().getResource("wp.png"));
+            Image whiteImg = ImageIO.read(getClass().getResource("wking.png"));
             gameWindow.setIconImage(whiteImg);
         } catch (Exception e) {
-            System.out.println("Game file wp.png not found");
+            System.out.println();
         }
 
         gameWindow.setLocation(400, 0);
@@ -99,7 +97,7 @@ public class GameWindow {
                         "Confirm new game", JOptionPane.YES_NO_OPTION);
                 
                 if (n == JOptionPane.YES_OPTION) {
-                    SwingUtilities.invokeLater(new StartMenu());
+                    SwingUtilities.invokeLater(new TitleScreen());
                     gameWindow.dispose();
                 }
             }
@@ -140,7 +138,7 @@ public class GameWindow {
                     JOptionPane.YES_NO_OPTION);
             
             if (n == JOptionPane.YES_OPTION) {
-                SwingUtilities.invokeLater(new StartMenu());
+                SwingUtilities.invokeLater(new TitleScreen());
                 gameWindow.dispose();
             }
         } else {
@@ -153,7 +151,7 @@ public class GameWindow {
                     JOptionPane.YES_NO_OPTION);
             
             if (n == JOptionPane.YES_OPTION) {
-                SwingUtilities.invokeLater(new StartMenu());
+                SwingUtilities.invokeLater(new TitleScreen());
                 gameWindow.dispose();
             }
         }

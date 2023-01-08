@@ -8,15 +8,15 @@ public class Pawn extends Piece {
         super(color, initSq, img_file);
     }
     
-    @Override
+
     public boolean move(Square fin) {
         boolean b = super.move(fin);
         wasMoved = true;
         return b;
     }
 
-    @Override
-    public List<Square> getLegalMoves(Board b) {
+
+    public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
         
         Square[][] board = b.getSquareArray();

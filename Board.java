@@ -1,14 +1,13 @@
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Point;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 import java.util.List;
-
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 
@@ -28,7 +27,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private String blackPawn = "bpawn.png";
 	
 	private Square[][] board;
-    private GameWindow g;
+    private ChessWindow g;
     
     public LinkedList<Piece> Bpieces;
     public LinkedList<Piece> Wpieces;
@@ -42,7 +41,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     
     private CheckmateCheck cmd;
     
-    public Board(GameWindow game) {
+    public Board(ChessWindow game) {
         g = game;
         board = new Square[8][8];
         Bpieces = new LinkedList<Piece>();
@@ -68,13 +67,14 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 }
             }
         }
-
+        
+        this.setMinimumSize(this.getPreferredSize());
+        this.setSize(new Dimension(1040, 1040));
         createPieces();
 
         this.setPreferredSize(new Dimension(1040, 1040));
         this.setMaximumSize(new Dimension(1040, 1040));
-        this.setMinimumSize(this.getPreferredSize());
-        this.setSize(new Dimension(1040, 1040));
+        
 
         whiteTurn = true;
 
@@ -137,9 +137,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         return this.currPiece;
     }
 
-    @Override
     public void paintComponent(Graphics g) {
-        // super.paintComponent(g);
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -157,7 +155,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
     }
 
-    @Override
+
     public void mousePressed(MouseEvent e) {
         currX = e.getX();
         currY = e.getY();
@@ -174,8 +172,6 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
         repaint();
     }
-
-    @Override
     public void mouseReleased(MouseEvent e) {
         Square sq = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
@@ -187,11 +183,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 return;
             }
                 
-            List<Square> legalMoves = currPiece.getLegalMoves(this);
+            List<Square> legalMoves = currPiece.getMoves(this);
             movable = cmd.getAllowableSquares(whiteTurn);
 
             if (legalMoves.contains(sq) && movable.contains(sq)
-                    && cmd.testMove(currPiece, sq)) {
+                    && cmd.checkMove(currPiece, sq)) {
                 sq.setDisplay(true);
                 currPiece.move(sq);
                 cmd.update();

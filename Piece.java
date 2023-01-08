@@ -194,5 +194,5 @@ public abstract class Piece {
     }
     
     // No implementation, to be implemented by each subclass
-    public abstract List<Square> getLegalMoves(Board b);
+    public abstract List<Square> getMoves(Board b);
 }

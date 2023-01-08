@@ -74,7 +74,7 @@ public class Square extends JComponent {
         if (this.color == 1) {
             g.setColor(new Color(221,192,127));
         } else {
-            g.setColor(new Color(101,67,33));
+            g.setColor(new Color(32,87,31));
         }
         
         g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
@@ -84,7 +84,7 @@ public class Square extends JComponent {
         }
     }
     
-    @Override
+    
     public int hashCode() {
         int prime = 31;
         int result = 1;
