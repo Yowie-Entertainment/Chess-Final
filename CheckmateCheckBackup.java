@@ -35,7 +35,7 @@ public class CheckmateCheckBackup {
         movableSquares = new LinkedList<Square>();
         mWhite = new HashMap<Square,List<Piece>>();
         mBlack = new HashMap<Square,List<Piece>>();
-        Square[][] brd = b.getSquareArray();
+        Square[][] brd = b.getBoardArray();
         
         // add all squares to squares list, and create new mWhite and mBlack, in which the key is
         // the square, and the value is a list of pieces that can move there
@@ -236,7 +236,7 @@ public class CheckmateCheckBackup {
             Square attackerSquare = attackers.get(0).getPosition();
             
             Square kingSquare = k.getPosition();
-            Square[][] boardArray = b.getSquareArray();
+            Square[][] boardArray = b.getBoardArray();
             
             //if the king and attacker are in the same rank, see if any pieces can be put between them
             if (kingSquare.getXNum() == attackerSquare.getXNum()) {

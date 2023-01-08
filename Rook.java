@@ -10,7 +10,7 @@ public class Rook extends Piece {
 
     public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
-        Square[][] board = b.getSquareArray();
+        Square[][] board = b.getBoardArray();
         
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();

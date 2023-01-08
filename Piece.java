@@ -8,37 +8,37 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public abstract class Piece {
-    private final int color;
+    private int color;
     private Square currentSquare;
     private BufferedImage img;
     
-    public Piece(int color, Square initSq, String img_file) {
+    public Piece(int color, Square initSq, String imageFile) {
         this.color = color;
         this.currentSquare = initSq;
         
         try {
             if (this.img == null) {
-              this.img = ImageIO.read(getClass().getResource(img_file));
+              this.img = ImageIO.read(getClass().getResource(imageFile));
             }
           } catch (IOException e) {
             System.out.println("File not found: " + e.getMessage());
           }
     }
     
-    public boolean move(Square fin) {
-        Piece occup = fin.getOccupyingPiece();
+    public boolean move(Square destination) {
+        Piece occup = destination.getOccupyingPiece();
         
         if (occup != null) {
             if (occup.getColor() == this.color) {
                 return false;
             }
             else {
-                fin.capture(this);
+                destination.capture(this);
             }
         }
         
         currentSquare.removePiece();
-        this.currentSquare = fin;
+        this.currentSquare = destination;
         currentSquare.put(this);
         return true;
     }
@@ -67,52 +67,66 @@ public abstract class Piece {
     }
     
     public int[] getLinearOccupations(Square[][] board, int x, int y) {
-        int lastYabove = 0;
-        int lastXright = 7;
-        int lastYbelow = 7;
-        int lastXleft = 0;
+        int yAbove = 0;
+        int xRight = 7;
+        int yBelow = 7;
+        int xLeft = 0;
         
+        //find the last moveable square linearly to the square (above)
         for (int i = 0; i < y; i++) {
             if (board[i][x].isOccupied()) {
                 if (board[i][x].getOccupyingPiece().getColor() != this.color) {
-                    lastYabove = i;
+                    yAbove = i;
                 } 
                 else    {
-                    lastYabove = i + 1;
+                    yAbove = i + 1;
                 }
             }
         }
 
+        //find last square below
         for (int i = 7; i > y; i--) {
             if (board[i][x].isOccupied()) {
                 if (board[i][x].getOccupyingPiece().getColor() != this.color) {
-                    lastYbelow = i;
-                } else lastYbelow = i - 1;
+                    yBelow = i;
+                } 
+                
+                else {
+                    yBelow = i - 1;
+                }
             }
         }
 
+        //find last square left
         for (int i = 0; i < x; i++) {
             if (board[y][i].isOccupied()) {
                 if (board[y][i].getOccupyingPiece().getColor() != this.color) {
-                    lastXleft = i;
-                } else lastXleft = i + 1;
+                    xLeft = i;
+                } 
+                
+                else {
+                    xLeft = i + 1;
+                }
             }
         }
 
+        //find last square right
         for (int i = 7; i > x; i--) {
             if (board[y][i].isOccupied()) {
                 if (board[y][i].getOccupyingPiece().getColor() != this.color) {
-                    lastXright = i;
-                } else lastXright = i - 1;
+                    xRight = i;
+                } else xRight = i - 1;
             }
         }
         
-        int[] occups = {lastYabove, lastYbelow, lastXleft, lastXright};
+        int[] occups = {yAbove, yBelow, xLeft, xRight};
         
         return occups;
     }
     
+    //find last square in the diagonal directions
     public List<Square> getDiagonalOccupations(Square[][] board, int x, int y) {
+        
         LinkedList<Square> diagOccup = new LinkedList<Square>();
         
         int xNW = x - 1;
@@ -193,6 +207,6 @@ public abstract class Piece {
         return diagOccup;
     }
     
-    // No implementation, to be implemented by each subclass
+    //each inherited piece will have their own method
     public abstract List<Square> getMoves(Board b);
 }

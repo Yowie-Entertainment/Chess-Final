@@ -7,18 +7,18 @@ import javax.swing.*;
 public class Square extends JComponent {
     private Board b;
     
-    private final int color;
+    private boolean color;
     private Piece occupyingPiece;
     private boolean dispPiece;
     
     private int xNum;
     private int yNum;
     
-    public Square(Board b, int c, int xNum, int yNum) {
+    public Square(Board b, boolean c, int xNum, int yNum) {
         
         this.b = b;
-        this.color = c;
-        this.dispPiece = true;
+        color = c;
+        dispPiece = true;
         this.xNum = xNum;
         this.yNum = yNum;
         
@@ -26,9 +26,6 @@ public class Square extends JComponent {
         this.setBorder(BorderFactory.createEmptyBorder());
     }
     
-    public int getColor() {
-        return this.color;
-    }
     
     public Piece getOccupyingPiece() {
         return occupyingPiece;
@@ -38,6 +35,30 @@ public class Square extends JComponent {
         return (this.occupyingPiece != null);
     }
     
+    
+    
+    public void setDisplay(boolean v) {
+        this.dispPiece = v;
+    }
+    
+    public boolean getColor() {
+        return this.color;
+    }
+    
+    public void put(Piece p) {
+        this.occupyingPiece = p;
+        p.setPosition(this);
+    }
+    
+    
+    
+    public void capture(Piece p) {
+        Piece k = getOccupyingPiece();
+        if (k.getColor() == 0) b.pBlack.remove(k);
+        if (k.getColor() == 1) b.pWhite.remove(k);
+        this.occupyingPiece = p;
+    }
+
     public int getXNum() {
         return this.xNum;
     }
@@ -46,34 +67,14 @@ public class Square extends JComponent {
         return this.yNum;
     }
     
-    public void setDisplay(boolean v) {
-        this.dispPiece = v;
-    }
-    
-    public void put(Piece p) {
-        this.occupyingPiece = p;
-        p.setPosition(this);
-    }
-    
-    public Piece removePiece() {
-        Piece p = this.occupyingPiece;
-        this.occupyingPiece = null;
-        return p;
-    }
-    
-    public void capture(Piece p) {
-        Piece k = getOccupyingPiece();
-        if (k.getColor() == 0) b.Bpieces.remove(k);
-        if (k.getColor() == 1) b.Wpieces.remove(k);
-        this.occupyingPiece = p;
-    }
-    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        if (this.color == 1) {
+        if (color) {
             g.setColor(new Color(221,192,127));
-        } else {
+        } 
+        
+        else {
             g.setColor(new Color(32,87,31));
         }
         
@@ -84,7 +85,12 @@ public class Square extends JComponent {
         }
     }
     
-    
+    public Piece removePiece() {
+        Piece p = this.occupyingPiece;
+        this.occupyingPiece = null;
+        return p;
+    }
+
     public int hashCode() {
         int prime = 31;
         int result = 1;

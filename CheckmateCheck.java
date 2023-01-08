@@ -35,7 +35,7 @@ public class CheckmateCheck {
         movableSquares = new LinkedList<Square>();
         mWhite = new HashMap<Square,List<Piece>>();
         mBlack = new HashMap<Square,List<Piece>>();
-        Square[][] brd = b.getSquareArray();
+        Square[][] brd = b.getBoardArray();
         
         // add all squares to squares list, and create new mWhite and mBlack, in which the key is
         // the square, and the value is a list of pieces that can move there
@@ -54,11 +54,38 @@ public class CheckmateCheck {
     //this method will update the board with new mWhite and mBlack  
     public void update() {
 
+        
         //create iterators for all the wPieces and bPieces
-        Iterator<Piece> wIter = wPieces.iterator();
-        Iterator<Piece> bIter = bPieces.iterator();
+        Iterator<Piece> w = wPieces.iterator();
+        Iterator<Piece> bIterator = bPieces.iterator();
+        
+        int king = 0;
+        while (w.hasNext()) {
+            Piece p = w.next();
+            if (p.getClass() == King.class) {
+                king++;
+            }
+        }
+        if (king == 0) {
+            b.getChessWindow().checkmateOccurred(1);
+            //b.getChessWindow().getGameWindow().dispose();
+        }
+
+        while (bIterator.hasNext()) {
+            Piece p = bIterator.next();
+            if (p.getClass() == King.class) {
+                king++;
+            }
+        }
+        if (king == 1) {
+            b.getChessWindow().checkmateOccurred(0);
+            //b.getChessWindow().getGameWindow().dispose();
+        }
         
         //remove all the mWhite and mBlack moves each time it is updated
+        
+        Iterator<Piece> wIter = wPieces.iterator();
+        Iterator<Piece> bIter = bPieces.iterator();
         for (List<Piece> pieces : mWhite.values()) {
             pieces.removeAll(pieces);
         }
@@ -149,9 +176,9 @@ public class CheckmateCheck {
             checkmate = false;
         }
         
-        // use the captureThreat method to see if the threat can be captured by something DOESNTWORK
+        // use the captureAttacker method to see if the threat can be captured by something DOESNTWORK
         List<Piece> threats = mWhite.get(bk.getPosition());
-        if (captureThreat(mBlack, threats, bk)) {
+        if (captureAttacker(mBlack, threats, bk)) {
             checkmate = false;
         }
         
@@ -179,7 +206,7 @@ public class CheckmateCheck {
         
         // check if king can capture
         List<Piece> threats = mBlack.get(wk.getPosition());
-        if (captureThreat(mWhite, threats, wk)) {
+        if (captureAttacker(mWhite, threats, wk)) {
             checkmate = false;
         }
         
@@ -226,7 +253,7 @@ public class CheckmateCheck {
         if (threats.size() == 1) {
             Square ts = threats.get(0).getPosition();
             Square ks = k.getPosition();
-            Square[][] brdArray = b.getSquareArray();
+            Square[][] brdArray = b.getBoardArray();
             
             if (ks.getXNum() == ts.getXNum()) {
                 int max = Math.max(ks.getYNum(), ts.getYNum());
@@ -370,8 +397,8 @@ public class CheckmateCheck {
         return blockable;
     }
     
-    //Helper method to determine if the threatening piece can be captured.
-    private boolean captureThreat(Map<Square,List<Piece>> poss, 
+    //check if someothing or the king can capture the attacker
+    private boolean captureAttacker(Map<Square,List<Piece>> poss, 
             List<Piece> threats, King k) {
         
         boolean capture = false;

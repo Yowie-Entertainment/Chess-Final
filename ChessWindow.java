@@ -49,7 +49,7 @@ public class ChessWindow {
         
         gameWindow.setMinimumSize(gameWindow.getPreferredSize());
         gameWindow.setSize(gameWindow.getPreferredSize());
-        gameWindow.setResizable(false);
+        gameWindow.setResizable(true);
         
         gameWindow.pack();
         gameWindow.setVisible(true);
@@ -78,7 +78,7 @@ public class ChessWindow {
             public void actionPerformed(ActionEvent e) {
                 int n = JOptionPane.showConfirmDialog(
                         gameWindow,
-                        "Are you sure you want to quit?",
+                        "Do you really want to quit?",
                         "Confirm quit", JOptionPane.YES_NO_OPTION);
                 
                 if (n == JOptionPane.YES_OPTION) {
@@ -87,14 +87,14 @@ public class ChessWindow {
             }
           });
         
-        final JButton nGame = new JButton("New game");
+        final JButton nGame = new JButton("Back to title screen");
         
         nGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int n = JOptionPane.showConfirmDialog(
                         gameWindow,
-                        "Are you sure you want to begin a new game?",
-                        "Confirm new game", JOptionPane.YES_NO_OPTION);
+                        "Do you really want to go back to title screen?",
+                        "Confirm", JOptionPane.YES_NO_OPTION);
                 
                 if (n == JOptionPane.YES_OPTION) {
                     SwingUtilities.invokeLater(new TitleScreen());
@@ -102,23 +102,7 @@ public class ChessWindow {
                 }
             }
           });
-        
-        final JButton instr = new JButton("How to play");
-        
-        instr.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(gameWindow,
-                        "Move the chess pieces on the board by clicking\n"
-                        + "and dragging. The game will watch out for illegal\n"
-                        + "moves. You can win either by your opponent running\n"
-                        + "out of time or by checkmating your opponent.\n"
-                        + "\nGood luck, hope you enjoy the game!",
-                        "How to play",
-                        JOptionPane.PLAIN_MESSAGE);
-            }
-          });
-        
-        buttons.add(instr);
+ 
         buttons.add(nGame);
         buttons.add(quit);
         
@@ -127,27 +111,27 @@ public class ChessWindow {
         return buttons;
     }
     
+    public JFrame getGameWindow() {
+        return gameWindow;
+    }
     public void checkmateOccurred (int c) {
         if (c == 0) {
-            //if (timer != null) timer.stop();
-            int n = JOptionPane.showConfirmDialog(
-                    gameWindow,
-                    "White wins by checkmate! Set up a new game? \n" +
-                    "Choosing \"No\" lets you look at the final situation.",
-                    "White wins!",
+            int n = JOptionPane.showConfirmDialog(gameWindow,"White wins!!!!! Do you want to create a new game? \n" +
+                    "Clicking \"No\" allows you to look at the board some more.",
+                    "White is the winner!",
                     JOptionPane.YES_NO_OPTION);
             
             if (n == JOptionPane.YES_OPTION) {
                 SwingUtilities.invokeLater(new TitleScreen());
                 gameWindow.dispose();
             }
-        } else {
-            //if (timer != null) timer.stop();
+        } 
+        else {
             int n = JOptionPane.showConfirmDialog(
                     gameWindow,
-                    "Black wins by checkmate! Set up a new game? \n" +
-                    "Choosing \"No\" lets you look at the final situation.",
-                    "Black wins!",
+                    "Black win!!!!! Do you want to create a new game? \n" +
+                    "Clicking \"No\" allows you to look at the board some more.",
+                    "Black is the winner!",
                     JOptionPane.YES_NO_OPTION);
             
             if (n == JOptionPane.YES_OPTION) {

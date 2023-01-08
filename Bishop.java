@@ -10,7 +10,7 @@ public class Bishop extends Piece {
     }
     
     public List<Square> getMoves(Board b) {
-        Square[][] board = b.getSquareArray();
+        Square[][] board = b.getBoardArray();
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();
         

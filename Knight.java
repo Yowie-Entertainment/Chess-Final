@@ -10,7 +10,7 @@ public class Knight extends Piece {
 
     public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
-        Square[][] board = b.getSquareArray();
+        Square[][] board = b.getBoardArray();
         
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();
@@ -21,7 +21,8 @@ public class Knight extends Piece {
                     if (k != 0 && i != 0) {
                         try {
                             legalMoves.add(board[y + k][x + i]);
-                        } catch (ArrayIndexOutOfBoundsException e) {
+                        } 
+                        catch (ArrayIndexOutOfBoundsException e) {
                             continue;
                         }
                     }
