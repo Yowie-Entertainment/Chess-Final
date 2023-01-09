@@ -7,7 +7,7 @@ public class Rook extends Piece {
         super(color, initSq, img_file);
     }
 
-
+    //just gets the legal moves for the rook
     public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
         Square[][] board = b.getBoardArray();
@@ -15,14 +15,14 @@ public class Rook extends Piece {
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();
         
-        int[] occups = getLinearOccupations(board, x, y);
+        int[] occups = getLinearOccupations(board, x, y); //See "Piece" class for method
         
-        for (int i = occups[0]; i <= occups[1]; i++) {
-            if (i != y) legalMoves.add(board[i][x]);
+        for (int index = occups[0]; index <= occups[1]; index++) {
+            if (index != y) legalMoves.add(board[index][x]);
         }
         
-        for (int i = occups[2]; i <= occups[3]; i++) {
-            if (i != x) legalMoves.add(board[y][i]);
+        for (int index2 = occups[2]; index2 <= occups[3]; index2++) {
+            if (index2 != x) legalMoves.add(board[y][index2]);
         }
         
         return legalMoves;

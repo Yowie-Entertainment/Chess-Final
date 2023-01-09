@@ -10,7 +10,9 @@ import javax.swing.*;
 
 
 public class ChessWindow {
-    private JFrame gameWindow;
+
+    //create the window and create a board
+    private JFrame window;
 
     
     
@@ -18,91 +20,74 @@ public class ChessWindow {
     
     
     
-    public ChessWindow(String blackName, String whiteName) {
+    public ChessWindow() {
 
         
-        gameWindow = new JFrame("Yowie Chess");
+        window = new JFrame("Yowie Chess");
         
 
+        //set the icon image to our company logo
         try {
-            Image whiteImg = ImageIO.read(getClass().getResource("wking.png"));
-            gameWindow.setIconImage(whiteImg);
-        } catch (Exception e) {
-            System.out.println();
+            Image whiteImg = ImageIO.read(getClass().getResource("yo.png"));
+            window.setIconImage(whiteImg);
+        } 
+        
+        catch (Exception e) {
         }
 
-        gameWindow.setLocation(400, 0);
         
+        window.setLocation(400, 0);
         
-        gameWindow.setLayout(new BorderLayout(20,20));
-       
-        // Game Data window
-        JPanel gameData = gameDataPanel(blackName, whiteName);
-        gameData.setSize(gameData.getPreferredSize());
-        gameWindow.add(gameData, BorderLayout.NORTH);
+        //create the window that chess will be played on
+        window.setLayout(new BorderLayout(20,20));
         
         this.board = new Board(this);
         
-        gameWindow.add(board, BorderLayout.CENTER);
+        window.add(board, BorderLayout.CENTER);
         
-        gameWindow.add(buttons(), BorderLayout.SOUTH);
+        window.add(buttons(), BorderLayout.SOUTH);
         
-        gameWindow.setMinimumSize(gameWindow.getPreferredSize());
-        gameWindow.setSize(gameWindow.getPreferredSize());
-        gameWindow.setResizable(true);
+        window.setMinimumSize(window.getPreferredSize());
+        window.setSize(window.getPreferredSize()); 
+        window.setResizable(true);
         
-        gameWindow.pack();
-        gameWindow.setVisible(true);
-        gameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        window.pack();
+        window.setVisible(true);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
-
-    
-    private JPanel gameDataPanel(final String bn, final String wn) {
-        
-        JPanel gameData = new JPanel();
-        gameData.setLayout(new GridLayout(3,2,0,0));
-        
-        gameData.setPreferredSize(gameData.getMinimumSize());
-        
-        return gameData;
-    }
-    
+    //create the buttons on the bottom of the screen
     private JPanel buttons() {
+        
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(1, 3, 10, 0));
         
-        final JButton quit = new JButton("Quit");
+        //pressing quit will create another small window asking if they really want to quit
+        JButton quit = new JButton("Quit");
         
         quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int n = JOptionPane.showConfirmDialog(
-                        gameWindow,
-                        "Do you really want to quit?",
-                        "Confirm quit", JOptionPane.YES_NO_OPTION);
-                
-                if (n == JOptionPane.YES_OPTION) {
-                    gameWindow.dispose();
+                int butt = JOptionPane.showConfirmDialog(window,"Do you really want to quit?","Confirm quit", JOptionPane.YES_NO_OPTION);
+                if (butt == JOptionPane.YES_OPTION) {
+                    window.dispose();
                 }
             }
           });
         
+        //create the button to back to title screen 
         final JButton nGame = new JButton("Back to title screen");
         
         nGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int n = JOptionPane.showConfirmDialog(
-                        gameWindow,
-                        "Do you really want to go back to title screen?",
-                        "Confirm", JOptionPane.YES_NO_OPTION);
-                
-                if (n == JOptionPane.YES_OPTION) {
+                int butt = JOptionPane.showConfirmDialog(window,"Do you really want to go back to title screen?","Confirm", JOptionPane.YES_NO_OPTION);
+                if (butt == JOptionPane.YES_OPTION) {
                     SwingUtilities.invokeLater(new TitleScreen());
-                    gameWindow.dispose();
+                    window.dispose();
                 }
             }
           });
- 
+        
+        //add both of these buttons to buttons JPanel 
         buttons.add(nGame);
         buttons.add(quit);
         
@@ -111,32 +96,30 @@ public class ChessWindow {
         return buttons;
     }
     
+    //returns the game window
     public JFrame getGameWindow() {
-        return gameWindow;
+        return window;
     }
+
+    //this is the method that is called when checkmate has occurred
     public void checkmateOccurred (int c) {
         if (c == 0) {
-            int n = JOptionPane.showConfirmDialog(gameWindow,"White wins!!!!! Do you want to create a new game? \n" +
-                    "Clicking \"No\" allows you to look at the board some more.",
+            int butt = JOptionPane.showConfirmDialog(window,"White wins!!!!! Do you want to create a new game? \n" + "Clicking \"No\" allows you to look at the board some more.",
                     "White is the winner!",
                     JOptionPane.YES_NO_OPTION);
-            
-            if (n == JOptionPane.YES_OPTION) {
+            if (butt == JOptionPane.YES_OPTION) {
                 SwingUtilities.invokeLater(new TitleScreen());
-                gameWindow.dispose();
+                window.dispose();
             }
         } 
+
         else {
-            int n = JOptionPane.showConfirmDialog(
-                    gameWindow,
-                    "Black win!!!!! Do you want to create a new game? \n" +
-                    "Clicking \"No\" allows you to look at the board some more.",
+            int butt = JOptionPane.showConfirmDialog(window,"Black win!!!!! Do you want to create a new game? \n" + "Clicking \"No\" allows you to look at the board some more.",
                     "Black is the winner!",
                     JOptionPane.YES_NO_OPTION);
-            
-            if (n == JOptionPane.YES_OPTION) {
+            if (butt == JOptionPane.YES_OPTION) {
                 SwingUtilities.invokeLater(new TitleScreen());
-                gameWindow.dispose();
+                window.dispose();
             }
         }
     }

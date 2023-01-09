@@ -13,7 +13,7 @@ public class TitleScreen implements Runnable {
     public void run() {
         final JFrame startWindow = new JFrame("Yowie Chess");
        
-
+    
         startWindow.setLocationRelativeTo(null);
         startWindow.setResizable(false);
         startWindow.setSize(700, 600);
@@ -59,7 +59,7 @@ public class TitleScreen implements Runnable {
             public void actionPerformed(ActionEvent e) {
 
                 System.out.println("check");
-                new ChessWindow("black", "white");
+                new ChessWindow();
                 startWindow.dispose();
             }
           });
