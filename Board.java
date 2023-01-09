@@ -186,6 +186,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
         repaint();
     }
+
+    //when mouse is released check if the piecee can move there
     public void mouseReleased(MouseEvent e) {
         Square sq = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
@@ -244,7 +246,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
-    
+    //drags the pieces with the mouse
     public void mouseDragged(MouseEvent e) {
         
         currX = e.getX() - 24;
