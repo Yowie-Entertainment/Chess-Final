@@ -8,14 +8,14 @@ public class Pawn extends Piece {
         super(color, initSq, img_file);
     }
     
-
+    //determins if the piece was moved
     public boolean move(Square fin) {
         boolean b = super.move(fin);
         wasMoved = true;
         return b;
     }
 
-
+    //method gets legal moves for the pawns
     public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
         
@@ -50,7 +50,7 @@ public class Pawn extends Piece {
                 }
             }
         }
-        
+        //marks occupied squares
         if (c == 1) {
             if (!wasMoved) {
                 if (!board[y-2][x].isOccupied()) {
@@ -76,7 +76,7 @@ public class Pawn extends Piece {
                 }
             }
         }
-        
+        //returns the legal moves (obviously)
         return legalMoves;
     }
 }

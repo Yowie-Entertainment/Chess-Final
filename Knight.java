@@ -3,11 +3,9 @@ import java.util.List;
 
 public class Knight extends Piece {
 
-    public Knight(int color, Square initSq, String img_file) {
-        super(color, initSq, img_file);
-    }
+    
 
-
+    //gets legal moves for the knight
     public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
         Square[][] board = b.getBoardArray();
@@ -15,12 +13,12 @@ public class Knight extends Piece {
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();
         
-        for (int i = 2; i > -3; i--) {
-            for (int k = 2; k > -3; k--) {
-                if(Math.abs(i) == 2 ^ Math.abs(k) == 2) {
-                    if (k != 0 && i != 0) {
+        for (int index = 2; index > -3; index--) {
+            for (int index2 = 2; index2 > -3; index2--) {
+                if(Math.abs(index) == 2 ^ Math.abs(index2) == 2) {
+                    if (index2 != 0 && index != 0) {
                         try {
-                            legalMoves.add(board[y + k][x + i]);
+                            legalMoves.add(board[y + index2][x + index]);
                         } 
                         catch (ArrayIndexOutOfBoundsException e) {
                             continue;
@@ -31,6 +29,10 @@ public class Knight extends Piece {
         }
         
         return legalMoves;
+    }
+    
+    public Knight(int color, Square initSq, String img_file) {
+        super(color, initSq, img_file);
     }
 
 }

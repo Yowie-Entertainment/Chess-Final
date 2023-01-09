@@ -7,9 +7,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 // TODO: It does not say checkmate during checkmate. The king can move into a square guarded by the checkmating piece after the mate. 
 //This happens during an actual mate, and when the checkmating piece can be captured to stop mate.
-
 // TODO: It does say checkmate when not. If the checkmating piece can be captured, and the king cannot move anywhere, it calls checkmate.
-
 //TODO: IF JUST NORMAL CHeck, and the checking piece is capturable, king can move into a square already covered
 
 

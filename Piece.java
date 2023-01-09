@@ -16,7 +16,8 @@ public abstract class Piece {
         this.color = color;
         this.currentSquare = initSq;
         
-        try {
+        //gets the image and such
+        try { 
             if (this.img == null) {
               this.img = ImageIO.read(getClass().getResource(imageFile));
             }
@@ -25,11 +26,12 @@ public abstract class Piece {
           }
     }
     
+    //allows for moving and capturing
     public boolean move(Square destination) {
         Piece occup = destination.getOccupyingPiece();
         
         if (occup != null) {
-            if (occup.getColor() == this.color) {
+            if (occup.getColor() == this.color) { //allows for capturing if the occupying piece is the enemy's
                 return false;
             }
             else {
@@ -37,12 +39,13 @@ public abstract class Piece {
             }
         }
         
-        currentSquare.removePiece();
+        currentSquare.removePiece(); //removes captured piece
         this.currentSquare = destination;
-        currentSquare.put(this);
+        currentSquare.put(this); //and places the new piece there
         return true;
     }
     
+    //i dont think you need explanations for these
     public Square getPosition() {
         return currentSquare;
     }
@@ -59,6 +62,7 @@ public abstract class Piece {
         return img;
     }
     
+    //draws the images
     public void draw(Graphics g) {
         int x = currentSquare.getX();
         int y = currentSquare.getY();
@@ -66,6 +70,9 @@ public abstract class Piece {
         g.drawImage(this.img, x + 10, y + 10, 100, 100,  null);
     }
     
+    //gets the occupied squares above, below, left, and right
+    //works by finding the last possible square the piece can move to, and using everything in between
+    // that way, if a piece is blocking it, it just stops there
     public int[] getLinearOccupations(Square[][] board, int x, int y) {
         int yAbove = 0;
         int xRight = 7;
@@ -128,6 +135,12 @@ public abstract class Piece {
     public List<Square> getDiagonalOccupations(Square[][] board, int x, int y) {
         
         LinkedList<Square> diagOccup = new LinkedList<Square>();
+
+        //checks for occupations in 4 directions
+        //North West (xNW, yNW)
+        //North East (xNE, yNE)
+        //South East (xSE, ySE)
+        //South West (xSW, ySW)
         
         int xNW = x - 1;
         int xSW = x - 1;
@@ -137,7 +150,10 @@ public abstract class Piece {
         int ySW = y + 1;
         int yNE = y - 1;
         int ySE = y + 1;
+
+        //needed each thing twice to find the similarity between the two, and therefore determine the square
         
+        //wont comment much, because it's very similar to LinearOccupations
         while (xNW >= 0 && yNW >= 0) {
             if (board[yNW][xNW].isOccupied()) {
                 if (board[yNW][xNW].getOccupyingPiece().getColor() == this.color) {
