@@ -7,6 +7,7 @@ public class King extends Piece {
         super(color, initSq, img_file);
     }
 
+    //this method gets the legal moves for the king
     public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
         
@@ -21,8 +22,8 @@ public class King extends Piece {
                     try {
                         if(!board[y + index2][x + index].isOccupied() || 
                                 board[y + index2][x + index].getOccupyingPiece().getColor() 
-                                != this.getColor()) {
-                            legalMoves.add(board[y + index2][x + index]);
+                                != this.getColor()) { //basically if the square is not occupied or if is, but by an enemy piece
+                            legalMoves.add(board[y + index2][x + index]); //add it to the legal moves
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         continue;
@@ -31,7 +32,7 @@ public class King extends Piece {
             }
         }
         
-        return legalMoves;
+        return legalMoves; //and return it
     }
 
 }

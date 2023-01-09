@@ -7,7 +7,7 @@ public class Queen extends Piece {
         super(color, initSq, img_file);
     }
 
-
+    //gets the legal moves for the queen
     public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
         Square[][] board = b.getBoardArray();
@@ -15,19 +15,19 @@ public class Queen extends Piece {
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();
         
-        int[] occups = getLinearOccupations(board, x, y);
+        int[] occups = getLinearOccupations(board, x, y); //gets occupied squares left, right, up, and down
         
-        for (int i = occups[0]; i <= occups[1]; i++) {
-            if (i != y) legalMoves.add(board[i][x]);
+        for (int index = occups[0]; index <= occups[1]; index++) {
+            if (index != y) legalMoves.add(board[index][x]);
         }
         
-        for (int i = occups[2]; i <= occups[3]; i++) {
-            if (i != x) legalMoves.add(board[y][i]);
+        for (int index2 = occups[2]; index2 <= occups[3]; index2++) {
+            if (index2 != x) legalMoves.add(board[y][index2]);
         }
         
-        List<Square> bMoves = getDiagonalOccupations(board, x, y);
+        List<Square> bMoves = getDiagonalOccupations(board, x, y); //gets occupied squares along diagonals. See "Piece" class for this method
         
-        legalMoves.addAll(bMoves);
+        legalMoves.addAll(bMoves); //adds diagonal moves to all moves
         
         return legalMoves;
     }
