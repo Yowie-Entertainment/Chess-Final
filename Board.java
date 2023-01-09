@@ -41,16 +41,21 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private int currX;
     private int currY;
     
-    private CheckmateCheckBackup cmc;
+    private CheckmateCheck cmc;
     
+
+    //creates new 8 by 8 2D array of squares to represent a board
+    // 
     public Board(ChessWindow game) {
         g = game;
         
         board = new Square[8][8];
+        //List of all of black and white's pieces
         pBlack = new LinkedList<Piece>();
         pWhite = new LinkedList<Piece>();
         setLayout(new GridLayout(8, 8, 0, 0));
 
+        //allows mouse to interact with the board
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
@@ -89,7 +94,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     }
 
     private void createPieces() {
-    	
+    	//runs through the board adding pieces in specific areas
         for (int x = 0; x < 8; x++) {
             board[1][x].put(new Pawn(0, board[1][x], blackPawn));
             board[6][x].put(new Pawn(1, board[6][x], whitePawn));
@@ -126,7 +131,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             }
         }
         
-        cmc = new CheckmateCheckBackup(this, pWhite, pBlack, wk, bk);
+        //initializes new CheckmateCheck object passing 
+        cmc = new CheckmateCheck(this, pWhite, pBlack, wk, bk);
     }
 
     
