@@ -41,7 +41,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private int currX;
     private int currY;
     
-    private CheckmateCheck cmc;
+    private CheckmateCheckBackup cmc;
     
     public Board(ChessWindow game) {
         g = game;
@@ -126,7 +126,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             }
         }
         
-        cmc = new CheckmateCheck(this, pWhite, pBlack, wk, bk);
+        cmc = new CheckmateCheckBackup(this, pWhite, pBlack, wk, bk);
     }
 
     
