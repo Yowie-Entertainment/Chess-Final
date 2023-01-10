@@ -78,7 +78,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         
         this.setMinimumSize(this.getPreferredSize());
         this.setSize(new Dimension(1040, 1040));
-        createPieces();
+        initializePieces();
 
         this.setPreferredSize(new Dimension(1040, 1040));
         this.setMaximumSize(new Dimension(1040, 1040));
@@ -93,36 +93,32 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         return g;
     }
 
-    private void createPieces() {
+    private void initializePieces() {
     	//runs through the board adding pieces in specific areas
         for (int x = 0; x < 8; x++) {
             board[1][x].put(new Pawn(0, board[1][x], blackPawn));
             board[6][x].put(new Pawn(1, board[6][x], whitePawn));
         }
-        
+        board[0][2].put(new Bishop(0, board[0][2], blackBishop));
+        board[0][5].put(new Bishop(0, board[0][5], blackBishop));
+        board[7][2].put(new Bishop(1, board[7][2], whiteBishop));
+        board[7][5].put(new Bishop(1, board[7][5], whiteBishop));
         board[7][3].put(new Queen(1, board[7][3], whiteQueen));
         board[0][3].put(new Queen(0, board[0][3], blackQueen));
-        
-        King bk = new King(0, board[0][4], blackKing);
-        King wk = new King(1, board[7][4], whiteKing);
-        board[0][4].put(bk);
-        board[7][4].put(wk);
-
         board[0][0].put(new Rook(0, board[0][0], blackRook));
         board[0][7].put(new Rook(0, board[0][7], blackRook));
         board[7][0].put(new Rook(1, board[7][0], whiteRook));
         board[7][7].put(new Rook(1, board[7][7], whiteRook));
-
+        //these are set as variables so they can used to create a checkmatecheck object
+        King kingBlack = new King(0, board[0][4], blackKing);
+        King kingWhite = new King(1, board[7][4], whiteKing);
+        board[0][4].put(kingBlack);
+        board[7][4].put(kingWhite);
         board[0][1].put(new Knight(0, board[0][1], blackKnight));
         board[0][6].put(new Knight(0, board[0][6], blackKnight));
         board[7][1].put(new Knight(1, board[7][1], whiteKnight));
         board[7][6].put(new Knight(1, board[7][6], whiteKnight));
 
-        board[0][2].put(new Bishop(0, board[0][2], blackBishop));
-        board[0][5].put(new Bishop(0, board[0][5], blackBishop));
-        board[7][2].put(new Bishop(1, board[7][2], whiteBishop));
-        board[7][5].put(new Bishop(1, board[7][5], whiteBishop));
-        
         //fills up pBlack and pWhite with current pieces
         for(int y = 0; y < 2; y++) {
             for (int x = 0; x < 8; x++) {
@@ -132,7 +128,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
         
         //initializes new CheckmateCheck object passing 
-        cmc = new CheckmateCheck(this, pWhite, pBlack, wk, bk);
+        cmc = new CheckmateCheck(this, pWhite, pBlack, kingWhite, kingBlack);
     }
 
     
@@ -156,22 +152,25 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //draw the board
     public void paintComponent(Graphics g) {
         
+        //creates each tile, and calls the paintComponent method in the square class too, to paint the squares
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Square sq = board[y][x];
                 sq.paintComponent(g);
             }
         }
-
+        
+        //redraws the current piece when it is clicked, so it can be dragged around
         if (currentPiece != null) {
             if ((currentPiece.getColor() == 1 && whiteTurn) || (currentPiece.getColor() == 0 && !whiteTurn)) {
                 final Image i = currentPiece.getImage();
                 g.drawImage(i, currX - 13, currY - 13, 100, 100, null);
             }
         }
+        
     }
 
-
+    //when the mouse is pressed, check if it is clicking their own piece
     public void mousePressed(MouseEvent e) {
         currX = e.getX();
         currY = e.getY();
@@ -193,7 +192,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
-    //when mouse is released check if the piecee can move there
+    //when mouse is released check if the piece can move there
     public void mouseReleased(MouseEvent e) {
         Square sq = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
@@ -243,6 +242,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
             } 
             
+            //else, set the piece back to its original position and currentpiece = null;
             else {
                 currentPiece.getPosition().setDisplay(true);
                 currentPiece = null;

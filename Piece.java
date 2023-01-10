@@ -122,7 +122,10 @@ public abstract class Piece {
             if (board[y][i].isOccupied()) {
                 if (board[y][i].getOccupyingPiece().getColor() != this.color) {
                     xRight = i;
-                } else xRight = i - 1;
+                } 
+                else {
+                    xRight = i - 1;
+                }
             }
         }
         
@@ -194,11 +197,15 @@ public abstract class Piece {
             if (board[ySE][xSE].isOccupied()) {
                 if (board[ySE][xSE].getOccupyingPiece().getColor() == this.color) {
                     break;
-                } else {
+                } 
+                
+                else {
                     diagOccup.add(board[ySE][xSE]);
                     break;
                 }
-            } else {
+            } 
+            
+            else {
                 diagOccup.add(board[ySE][xSE]);
                 ySE++;
                 xSE++;
@@ -209,11 +216,15 @@ public abstract class Piece {
             if (board[yNE][xNE].isOccupied()) {
                 if (board[yNE][xNE].getOccupyingPiece().getColor() == this.color) {
                     break;
-                } else {
+                } 
+                
+                else {
                     diagOccup.add(board[yNE][xNE]);
                     break;
                 }
-            } else {
+            } 
+            
+            else {
                 diagOccup.add(board[yNE][xNE]);
                 yNE--;
                 xNE++;

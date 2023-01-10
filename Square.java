@@ -7,18 +7,19 @@ import javax.swing.*;
 public class Square extends JComponent {
     private Board b;
     
-    private boolean color;
-    private Piece occupyingPiece;
-    private boolean dispPiece;
-    
     private int xNum;
     private int yNum;
+
+    private boolean color;
+    private Piece occupyingPiece;
+    private boolean pieceDisplay;
+    
     
     public Square(Board b, boolean c, int xNum, int yNum) {
         
         this.b = b;
         color = c;
-        dispPiece = true;
+        pieceDisplay = true;
         this.xNum = xNum;
         this.yNum = yNum;
         
@@ -38,7 +39,7 @@ public class Square extends JComponent {
     
     
     public void setDisplay(boolean v) {
-        this.dispPiece = v;
+        this.pieceDisplay = v;
     }
     
     public boolean getColor() {
@@ -80,7 +81,7 @@ public class Square extends JComponent {
         
         g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         
-        if(occupyingPiece != null && dispPiece) {
+        if(occupyingPiece != null && pieceDisplay) {
             occupyingPiece.draw(g);
         }
     }
