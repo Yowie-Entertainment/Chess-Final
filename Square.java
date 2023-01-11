@@ -68,6 +68,9 @@ public class Square extends JComponent {
         return this.yNum;
     }
     
+    public String toString() {
+        return ""+ xNum + "" + yNum;
+    }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         

@@ -15,8 +15,8 @@ public class CheckmateCheck {
     private final LinkedList<Square> squares;
     private King bk;
     private King wk;
-    private HashMap<Square,List<Piece>> mWhite;
-    private HashMap<Square,List<Piece>> mBlack;
+    private HashMap<Square, List<Piece>> mWhite;
+    private HashMap<Square, List<Piece>> mBlack;
     private LinkedList<Piece> bPieces;
     private LinkedList<Square> movableSquares;
     private Board b;
@@ -53,32 +53,30 @@ public class CheckmateCheck {
     public void update() {
 
         
-        //create iterators for all the wPieces and bPieces
-        Iterator<Piece> w = wPieces.iterator();
-        Iterator<Piece> bIterator = bPieces.iterator();
+        // //create iterators for all the wPieces and bPieces
+        // Iterator<Piece> w = wPieces.iterator();
+        // Iterator<Piece> bIterator = bPieces.iterator();
         
-        int king = 0;
-        while (w.hasNext()) {
-            Piece p = w.next();
-            if (p.getClass() == King.class) {
-                king++;
-            }
-        }
-        if (king == 0) {
-            b.getChessWindow().checkmateOccurred(1);
-            //b.getChessWindow().getGameWindow().dispose();
-        }
+        // int king = 0;
+        // while (w.hasNext()) {
+        //     Piece p = w.next();
+        //     if (p.getClass() == King.class) {
+        //         king++;
+        //     }
+        // }
+        // if (king == 0) {
+        //     b.getChessWindow().checkmateOccurred(1);
+        // }
 
-        while (bIterator.hasNext()) {
-            Piece p = bIterator.next();
-            if (p.getClass() == King.class) {
-                king++;
-            }
-        }
-        if (king == 1) {
-            b.getChessWindow().checkmateOccurred(0);
-            //b.getChessWindow().getGameWindow().dispose();
-        }
+        // while (bIterator.hasNext()) {
+        //     Piece p = bIterator.next();
+        //     if (p.getClass() == King.class) {
+        //         king++;
+        //     }
+        // }
+        // if (king == 1) {
+        //     b.getChessWindow().checkmateOccurred(0);
+        // }
         
         //remove all the mWhite and mBlack moves each time it is updated
         
@@ -172,13 +170,16 @@ public class CheckmateCheck {
         // use the evade method to see if the king can run away
         if (evade(mWhite, bk)) {
             checkmate = false;
+            System.out.println("sugman");
         }
         
         // use the captureAttacker method to see if the threat can be captured by something DOESNTWORK
+        System.out.println(mWhite);
         List<Piece> threats = mWhite.get(bk.getPosition());
-        if (captureAttacker(mBlack, threats, bk)) {
-            checkmate = false;
-        }
+        System.out.println(threats);
+         if (captureAttacker(mBlack, threats, bk)) {
+             checkmate = false;
+         }
         
         // use the block method to see if the threat can be blocked somehow
         if (block(threats, mBlack, bk)) {
@@ -204,9 +205,9 @@ public class CheckmateCheck {
         
         // check if king can capture
         List<Piece> threats = mBlack.get(wk.getPosition());
-        if (captureAttacker(mWhite, threats, wk)) {
-            checkmate = false;
-        }
+         if (captureAttacker(mWhite, threats, wk)) {
+             checkmate = false;
+         }
         
         // check if king can block
         if (block(threats, mWhite, wk)) {
@@ -396,11 +397,13 @@ public class CheckmateCheck {
     }
     
     //check if someothing or the king can capture the attacker
-    private boolean captureAttacker(Map<Square,List<Piece>> poss, 
-            List<Piece> threats, King k) {
+    private boolean captureAttacker(Map<Square,List<Piece>> poss, List<Piece> threats, King k) {
         
         boolean capture = false;
+        System.out.println(threats);
+
         if (threats.size() == 1) {
+            System.out.println("check");
             Square sq = threats.get(0).getPosition();
             
             if (k.getMoves(b).contains(sq)) {
@@ -432,7 +435,9 @@ public class CheckmateCheck {
         movableSquares.removeAll(movableSquares);
         if (whiteInCheck()) {
             whiteCheckMated();
-        } else if (blackInCheck()) {
+        } 
+        
+        else if (blackInCheck()) {
             blackCheckMated();
         }
         return movableSquares;

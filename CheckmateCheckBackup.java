@@ -149,16 +149,16 @@ public class CheckmateCheckBackup {
             checkmate = false;
         }
         
-        // use the captureThreat method to see if the threat can be captured by something DOESNTWORK
-        List<Piece> threats = mWhite.get(bk.getPosition());
+        // // use the captureThreat method to see if the threat can be captured by something DOESNTWORK
+         List<Piece> threats = mWhite.get(bk.getPosition());
         if (captureThreat(mBlack, threats, bk)) {
-            checkmate = false;
-        }
+             checkmate = false;
+         }
         
         // use the block method to see if the threat can be blocked somehow
-        if (block(threats, mBlack, bk)) {
-            checkmate = false;
-        }
+        //if (block(threats, mBlack, bk)) {
+        //    checkmate = false;
+        //}
         
         // else return that it is checkmate
         return checkmate;
@@ -387,7 +387,7 @@ public class CheckmateCheckBackup {
         return blockable;
     }
     
-    //Helper method to determine if the threatening piece can be captured.
+    // method to determine if the threatening piece can be captured.
     private boolean captureThreat(Map<Square,List<Piece>> poss, 
             List<Piece> threats, King k) {
         
@@ -406,7 +406,7 @@ public class CheckmateCheckBackup {
             ConcurrentLinkedDeque<Piece> capturers = new ConcurrentLinkedDeque<Piece>();
             capturers.addAll(caps);
             
-            if (!capturers.isEmpty()) {
+            if (capturers.isEmpty() == false) {
                 movableSquares.add(sq);
                 for (Piece p : capturers) {
                     if (checkMove(p, sq)) {
@@ -424,7 +424,9 @@ public class CheckmateCheckBackup {
         movableSquares.removeAll(movableSquares);
         if (whiteInCheck()) {
             whiteCheckMated();
-        } else if (blackInCheck()) {
+        } 
+        
+        else if (blackInCheck()) {
             blackCheckMated();
         }
         return movableSquares;

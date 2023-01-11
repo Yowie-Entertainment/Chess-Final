@@ -16,7 +16,7 @@ public class TitleScreen implements Runnable {
     
         startWindow.setLocationRelativeTo(null);
         startWindow.setResizable(false);
-        startWindow.setSize(700, 600);
+        startWindow.setSize(1000, 1000);
         
         Box components = Box.createVerticalBox();
         startWindow.add(components);
@@ -57,8 +57,6 @@ public class TitleScreen implements Runnable {
         
         chessB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println("check");
                 new ChessWindow();
                 startWindow.dispose();
             }
