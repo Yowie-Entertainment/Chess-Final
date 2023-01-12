@@ -18,11 +18,15 @@ public class Queen extends Piece {
         int[] occups = getLinearOccupations(board, x, y); //gets occupied squares left, right, up, and down
         
         for (int index = occups[0]; index <= occups[1]; index++) {
-            if (index != y) legalMoves.add(board[index][x]);
+            if (index != y) {
+                legalMoves.add(board[index][x]);
+            }
         }
         
         for (int index2 = occups[2]; index2 <= occups[3]; index2++) {
-            if (index2 != x) legalMoves.add(board[y][index2]);
+            if (index2 != x) {
+                legalMoves.add(board[y][index2]);
+            }
         }
         
         List<Square> bMoves = getDiagonalOccupations(board, x, y); //gets occupied squares along diagonals. See "Piece" class for this method

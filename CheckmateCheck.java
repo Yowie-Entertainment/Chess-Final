@@ -21,10 +21,12 @@ public class CheckmateCheck {
     private LinkedList<Square> movableSquares;
     private Board b;
     private LinkedList<Piece> wPieces;
+    private static int num;
     
     public CheckmateCheck(Board board, LinkedList<Piece> wPieces1, LinkedList<Piece> bPieces1, King wk1, King bk1) {
         //initializes instance variables
         b = board;
+        num = 1;
         wPieces = wPieces1;
         bPieces = bPieces1;
         bk = bk1;
@@ -111,6 +113,10 @@ public class CheckmateCheck {
                 }
             }
         }
+        System.out.println(num);
+        num++;
+        System.out.println("WHITE MOVES" + mWhite);
+        System.out.println();
 
         //do the exact same thing as above, but with all the black pieces
         while (bIter.hasNext()) {
@@ -131,6 +137,8 @@ public class CheckmateCheck {
             }
         }
     }
+
+    
     
     //check if black is in check
     public boolean blackInCheck() {
@@ -170,21 +178,24 @@ public class CheckmateCheck {
         // use the evade method to see if the king can run away
         if (evade(mWhite, bk)) {
             checkmate = false;
-            System.out.println("sugman");
         }
         
         // use the captureAttacker method to see if the threat can be captured by something DOESNTWORK
         System.out.println(mWhite);
+        System.out.println(bk.getPosition());
         List<Piece> threats = mWhite.get(bk.getPosition());
         System.out.println(threats);
          if (captureAttacker(mBlack, threats, bk)) {
-             checkmate = false;
+            System.out.println("capture attacker is true") ;
+            checkmate = false;
          }
-        
+        System.out.println("Capture atttacker is false");
         // use the block method to see if the threat can be blocked somehow
         if (block(threats, mBlack, bk)) {
             checkmate = false;
+            System.out.println("block is true (takeable)");
         }
+        System.out.println("block is false (checkmate)");
         
         // else return that it is checkmate
         return checkmate;
@@ -400,7 +411,6 @@ public class CheckmateCheck {
     private boolean captureAttacker(Map<Square,List<Piece>> poss, List<Piece> threats, King k) {
         
         boolean capture = false;
-        System.out.println(threats);
 
         if (threats.size() == 1) {
             System.out.println("check");
