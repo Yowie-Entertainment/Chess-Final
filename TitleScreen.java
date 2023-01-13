@@ -33,14 +33,14 @@ public class TitleScreen implements Runnable {
    
       JButton chessB = new JButton("CHESS");
       chessB.setFont(new Font("Book Antiqua", Font.PLAIN,82));      
-      chessB.setBounds((700 / 2) - 200, (600 / 2) - 50, 400, 100);
+      chessB.setBounds((700 / 2) - 200, (600 / 2) - 40, 600, 200);
       chessB.setBorder(null);
       chessB.setBackground(null);
       chessB.setFocusPainted(false);
       chessB.setForeground(Color.BLACK);
       chessB.setVisible(true); 
       titlePanel.add(chessB);
-      chessB.setContentAreaFilled(true);
+      chessB.setContentAreaFilled(false);
 
       
         // Buttons
@@ -55,7 +55,7 @@ public class TitleScreen implements Runnable {
         
         final JButton start = new JButton("Start");
         
-        chessB.addActionListener(new ActionListener() {
+        start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new ChessWindow();
                 startWindow.dispose();
