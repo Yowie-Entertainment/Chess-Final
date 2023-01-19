@@ -170,13 +170,13 @@ public class CheckmateCheck {
     public boolean blackCheckMated() {
         boolean checkmate = true;
         // if black is not in check, then it can't be checkmate
-        if (!this.blackInCheck()) {
+        if (!this.blackInCheck()) {   // 5
             return false;
         }
         
         
         // use the evade method to see if the king can run away
-        if (evade(mWhite, bk)) {
+        if (evade(mWhite, bk)) { //6
             checkmate = false;
         }
         
@@ -413,7 +413,6 @@ public class CheckmateCheck {
         boolean capture = false;
 
         if (threats.size() == 1) {
-            System.out.println("check");
             Square sq = threats.get(0).getPosition();
             
             if (k.getMoves(b).contains(sq)) {

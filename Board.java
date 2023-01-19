@@ -129,6 +129,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         
         //initializes new CheckmateCheck object passing 
         cmc = new CheckmateCheck(this, pWhite, pBlack, kingWhite, kingBlack);
+        System.out.println("UPDATE 1");
     }
 
     
@@ -210,13 +211,13 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             movable = cmc.getAllowableSquares(whiteTurn);
             
             //if the move is possible, legal, and will not result in check
-            if (possMoves.contains(sq) && movable.contains(sq) && cmc.checkMove(currentPiece, sq)) {
+            if (possMoves.contains(sq) && movable.contains(sq) && cmc.checkMove(currentPiece, sq)) { //1-3
                 sq.setDisplay(true);
                 currentPiece.move(sq);
-                cmc.update();
+                cmc.update(); //4
 
                 //if black is checkmated then stop recording mouse movement
-                if (cmc.blackCheckMated()) {
+                if (cmc.blackCheckMated()) { 
                     currentPiece = null;
                     repaint();
                     this.removeMouseListener(this);
