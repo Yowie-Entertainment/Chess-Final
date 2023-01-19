@@ -183,15 +183,15 @@ public class CheckmateCheck {
         // use the captureAttacker method to see if the threat can be captured by something DOESNTWORK
         System.out.println(mWhite);
         System.out.println(bk.getPosition());
-        List<Piece> threats = mWhite.get(bk.getPosition());
-        System.out.println(threats);
-         if (captureAttacker(mBlack, threats, bk)) {
+        List<Piece> attackers = mWhite.get(bk.getPosition());
+        System.out.println(attackers);
+         if (captureAttacker(mBlack, attackers, bk)) {
             System.out.println("capture attacker is true") ;
             checkmate = false;
          }
         System.out.println("Capture atttacker is false");
         // use the block method to see if the threat can be blocked somehow
-        if (block(threats, mBlack, bk)) {
+        if (block(attackers, mBlack, bk)) {
             checkmate = false;
             System.out.println("block is true (takeable)");
         }
@@ -215,13 +215,13 @@ public class CheckmateCheck {
         }
         
         // check if king can capture
-        List<Piece> threats = mBlack.get(wk.getPosition());
-         if (captureAttacker(mWhite, threats, wk)) {
+        List<Piece> attackers = mBlack.get(wk.getPosition());
+         if (captureAttacker(mWhite, attackers, wk)) {
              checkmate = false;
          }
         
         // check if king can block
-        if (block(threats, mWhite, wk)) {
+        if (block(attackers, mWhite, wk)) {
             checkmate = false;
         }
         // if all else is false, then it is checkmate
@@ -257,28 +257,46 @@ public class CheckmateCheck {
     
     
     //Helper method to determine if check can be blocked by a piece.
-    private boolean block(List<Piece> threats, Map <Square,List<Piece>> blockMoves, King k) {
+    private boolean block(List<Piece> attackers, Map <Square,List<Piece>> blockMoves, King k) {
         boolean blockable = false;
-        
-        if (threats.size() == 1) {
-            Square ts = threats.get(0).getPosition();
+        System.out.println(attackers);
+        //if there is only 1 attacker
+        if (attackers.size() == 1) {
+            //variables for the attacker's and king's square and get the array of the board
+            Square ts = attackers.get(0).getPosition();
+            
             Square ks = k.getPosition();
             Square[][] brdArray = b.getBoardArray();
             
+            //if the king and attacker are in the same rank, see if any pieces can be put between them
             if (ks.getXNum() == ts.getXNum()) {
-                int max = Math.max(ks.getYNum(), ts.getYNum());
-                int min = Math.min(ks.getYNum(), ts.getYNum());
                 
-                for (int i = min + 1; i < max; i++) {
-                    List<Piece> blks = blockMoves.get(brdArray[i][ks.getXNum()]);
+                //get the higher and lower value y value to find all the squares between them
+                int highValue = Math.max(ks.getYNum(), ts.getYNum());
+                
+                
+                int lowValue = Math.min(ks.getYNum(), ts.getYNum());
+                
+
+
+                //loop through those middle squares to see if any pieces can move to them
+                for (int j = lowValue + 1; j < highValue; j++) {
+                    //blocks is the list of the pieces that can move to the certain square (j)
+                    List<Piece> blocks = blockMoves.get(brdArray[j][ks.getXNum()]);
                     ConcurrentLinkedDeque<Piece> blockers = new ConcurrentLinkedDeque<Piece>();
-                    blockers.addAll(blks);
+                    blockers.addAll(blocks);
                     
+
+                    //while blockers still has pieces
                     if (!blockers.isEmpty()) {
-                        movableSquares.add(brdArray[i][ks.getXNum()]);
+                        //adds j to moveableSquares
+                        movableSquares.add(brdArray[j][ks.getXNum()]);
                         
+                        //for every piece that can move to j
                         for (Piece p : blockers) {
-                            if (checkMove(p,brdArray[i][ks.getXNum()])) {
+
+                            //if it stops check, then blockable is true
+                            if (checkMove(p,brdArray[j][ks.getXNum()])) {
                                 blockable = true;
                             }
                         }
@@ -287,21 +305,27 @@ public class CheckmateCheck {
                 }
             }
             
+
+            //same thing as above but if the king and attacker are on the same file
             if (ks.getYNum() == ts.getYNum()) {
-                int max = Math.max(ks.getXNum(), ts.getXNum());
-                int min = Math.min(ks.getXNum(), ts.getXNum());
+
+                //get higher and lower value of the x values
+                int highValue = Math.max(ks.getXNum(), ts.getXNum());
+                int lowValue = Math.min(ks.getXNum(), ts.getXNum());
                 
-                for (int i = min + 1; i < max; i++) {
-                    List<Piece> blks = blockMoves.get(brdArray[ks.getYNum()][i]);
+
+                //see above comments, same process applies
+                for (int j = lowValue + 1; j < highValue; j++) {
+                    List<Piece> blocks = blockMoves.get(brdArray[ks.getYNum()][j]);
                     ConcurrentLinkedDeque<Piece> blockers = new ConcurrentLinkedDeque<Piece>();
-                    blockers.addAll(blks);
+                    blockers.addAll(blocks);
                     
                     if (!blockers.isEmpty()) {
                         
-                        movableSquares.add(brdArray[ks.getYNum()][i]);
+                        movableSquares.add(brdArray[ks.getYNum()][j]);
                         
                         for (Piece p : blockers) {
-                            if (checkMove(p, brdArray[ks.getYNum()][i])) {
+                            if (checkMove(p, brdArray[ks.getYNum()][j])) {
                                 blockable = true;
                             }
                         }
@@ -310,28 +334,30 @@ public class CheckmateCheck {
                 }
             }
             
-            Class<? extends Piece> tC = threats.get(0).getClass();
+            //check the class of the attacking piece to see if it is checking the king diagonally
+            Class<? extends Piece> attackerClass = attackers.get(0).getClass();
             
-            if (tC.equals(Queen.class) || tC.equals(Bishop.class)) {
-                int kX = ks.getXNum();
-                int kY = ks.getYNum();
-                int tX = ts.getXNum();
-                int tY = ts.getYNum();
+            if (attackerClass.equals(Queen.class) || attackerClass.equals(Bishop.class)) {
                 
-                if (kX > tX && kY > tY) {
-                    for (int i = tX + 1; i < kX; i++) {
-                        tY++;
-                        List<Piece> blks = 
-                                blockMoves.get(brdArray[tY][i]);
-                        ConcurrentLinkedDeque<Piece> blockers = 
-                                new ConcurrentLinkedDeque<Piece>();
-                        blockers.addAll(blks);
+                int attackX = ts.getXNum();
+                int attackY = ts.getYNum();
+                
+                int kingX = ks.getXNum();
+                int kingY = ks.getYNum();
+                
+                // if the king is right and down
+                if (kingX > attackX && kingY > attackY) {
+                    for (int i = attackX + 1; i < kingX; i++) {
+                        attackY++;
+                        List<Piece> blocks = blockMoves.get(brdArray[attackY][i]);
+                        ConcurrentLinkedDeque<Piece> blockers = new ConcurrentLinkedDeque<Piece>();
+                        blockers.addAll(blocks);
                         
                         if (!blockers.isEmpty()) {
-                            movableSquares.add(brdArray[tY][i]);
+                            movableSquares.add(brdArray[attackY][i]);
                             
                             for (Piece p : blockers) {
-                                if (checkMove(p, brdArray[tY][i])) {
+                                if (checkMove(p, brdArray[attackY][i])) {
                                     blockable = true;
                                 }
                             }
@@ -339,20 +365,21 @@ public class CheckmateCheck {
                     }
                 }
                 
-                if (kX > tX && tY > kY) {
-                    for (int i = tX + 1; i < kX; i++) {
-                        tY--;
-                        List<Piece> blks = 
-                                blockMoves.get(brdArray[tY][i]);
+                //if king is diag
+                if (kingX > attackX && attackY > kingY) {
+                    for (int i = attackX + 1; i < kingX; i++) {
+                        attackY--;
+                        List<Piece> blocks = 
+                                blockMoves.get(brdArray[attackY][i]);
                         ConcurrentLinkedDeque<Piece> blockers = 
                                 new ConcurrentLinkedDeque<Piece>();
-                        blockers.addAll(blks);
+                        blockers.addAll(blocks);
                         
                         if (!blockers.isEmpty()) {
-                            movableSquares.add(brdArray[tY][i]);
+                            movableSquares.add(brdArray[attackY][i]);
                             
                             for (Piece p : blockers) {
-                                if (checkMove(p, brdArray[tY][i])) {
+                                if (checkMove(p, brdArray[attackY][i])) {
                                     blockable = true;
                                 }
                             }
@@ -360,20 +387,20 @@ public class CheckmateCheck {
                     }
                 }
                 
-                if (tX > kX && kY > tY) {
-                    for (int i = tX - 1; i > kX; i--) {
-                        tY++;
-                        List<Piece> blks = 
-                                blockMoves.get(brdArray[tY][i]);
+                if (attackX > kingX && kingY > attackY) {
+                    for (int i = attackX - 1; i > kingX; i--) {
+                        attackY++;
+                        List<Piece> blocks = 
+                                blockMoves.get(brdArray[attackY][i]);
                         ConcurrentLinkedDeque<Piece> blockers = 
                                 new ConcurrentLinkedDeque<Piece>();
-                        blockers.addAll(blks);
+                        blockers.addAll(blocks);
                         
                         if (!blockers.isEmpty()) {
-                            movableSquares.add(brdArray[tY][i]);
+                            movableSquares.add(brdArray[attackY][i]);
                             
                             for (Piece p : blockers) {
-                                if (checkMove(p, brdArray[tY][i])) {
+                                if (checkMove(p, brdArray[attackY][i])) {
                                     blockable = true;
                                 }
                             }
@@ -381,20 +408,20 @@ public class CheckmateCheck {
                     }
                 }
                 
-                if (tX > kX && tY > kY) {
-                    for (int i = tX - 1; i > kX; i--) {
-                        tY--;
-                        List<Piece> blks = 
-                                blockMoves.get(brdArray[tY][i]);
+                if (attackX > kingX && attackY > kingY) {
+                    for (int i = attackX - 1; i > kingX; i--) {
+                        attackY--;
+                        List<Piece> blocks = 
+                                blockMoves.get(brdArray[attackY][i]);
                         ConcurrentLinkedDeque<Piece> blockers = 
                                 new ConcurrentLinkedDeque<Piece>();
-                        blockers.addAll(blks);
+                        blockers.addAll(blocks);
                         
                         if (!blockers.isEmpty()) {
-                            movableSquares.add(brdArray[tY][i]);
+                            movableSquares.add(brdArray[attackY][i]);
                             
                             for (Piece p : blockers) {
-                                if (checkMove(p, brdArray[tY][i])) {
+                                if (checkMove(p, brdArray[attackY][i])) {
                                     blockable = true;
                                 }
                             }
@@ -408,12 +435,18 @@ public class CheckmateCheck {
     }
     
     //check if someothing or the king can capture the attacker
-    private boolean captureAttacker(Map<Square,List<Piece>> poss, List<Piece> threats, King k) {
+    private boolean captureAttacker(Map<Square,List<Piece>> poss, List<Piece> attackers, King k) {
         
         boolean capture = false;
 
+<<<<<<< HEAD
         if (threats.size() == 1) {
             Square sq = threats.get(0).getPosition();
+=======
+        if (attackers.size() == 1) {
+            System.out.println("check");
+            Square sq = attackers.get(0).getPosition();
+>>>>>>> f296853301b5b89f01d90815e761a5ba9415971e
             
             if (k.getMoves(b).contains(sq)) {
                 movableSquares.add(sq);
