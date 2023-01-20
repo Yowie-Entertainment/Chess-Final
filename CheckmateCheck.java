@@ -439,14 +439,9 @@ public class CheckmateCheck {
         
         boolean capture = false;
 
-<<<<<<< HEAD
-        if (threats.size() == 1) {
-            Square sq = threats.get(0).getPosition();
-=======
         if (attackers.size() == 1) {
             System.out.println("check");
             Square sq = attackers.get(0).getPosition();
->>>>>>> f296853301b5b89f01d90815e761a5ba9415971e
             
             if (k.getMoves(b).contains(sq)) {
                 movableSquares.add(sq);

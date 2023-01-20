@@ -14,14 +14,17 @@ public class ChessWindow {
     //create the window and create a board
     private JFrame window;
 
-    
+    AudioAsset aa = new AudioAsset();
     
     private Board board;
     
     
     
     public ChessWindow() {
-
+        Music music = new Music();
+        music.setFile(aa.msuc);
+        music.play(aa.msuc);
+        music.loop(aa.msuc);
         
         window = new JFrame("Yowie Chess");
         
@@ -50,7 +53,7 @@ public class ChessWindow {
         window.setMinimumSize(window.getPreferredSize());
         window.setSize(window.getPreferredSize()); 
         window.setResizable(true);
-        
+    
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -123,4 +126,5 @@ public class ChessWindow {
             }
         }
     }
+
 }

@@ -29,7 +29,15 @@ public class TitleScreen implements Runnable {
         
         Box components = Box.createVerticalBox();
         startWindow.add(components);
-        
+         
+        //set the icon image to our company logo
+         try {
+          Image glass = ImageIO.read(getClass().getResource("yo.png"));
+          startWindow.setIconImage(glass);
+      } 
+      
+      catch (Exception e) {
+      }
         
 
 
