@@ -9,10 +9,13 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import java.net.URL;
 
 
 public class Board extends JPanel implements MouseListener, MouseMotionListener {
     
+    AudioAsset aa = new AudioAsset();
+    SoundEffect sound = new SoundEffect();
     private ChessWindow g;
     private String whiteBishop = "wbishop.png";
 	private String blackBishop = "bbishop.png";
@@ -86,6 +89,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
         whiteTurn = true;
 
+    }
+
+    public void playSoundEffect(URL url) {
+        sound.setFile(url);
+		sound.play(url);
     }
 
     //returns the chesswindow
@@ -216,6 +224,15 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 currentPiece.move(sq);
                 cmc.update(); //4
 
+                
+
+                if (cmc.whiteInCheck() || cmc.blackInCheck()) {
+                    playSoundEffect(aa.checkSound);
+                }
+                
+                else {
+                    playSoundEffect(aa.moveSound);
+                }
                 //if black is checkmated then stop recording mouse movement
                 if (cmc.blackCheckMated()) { 
                     currentPiece = null;

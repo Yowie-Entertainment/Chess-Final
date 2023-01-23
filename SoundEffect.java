@@ -3,19 +3,17 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class Music {
+public class SoundEffect {
 	
 	Clip clip;
-
+	
 	public void setFile(URL name) {
 		
 		try {
 			AudioInputStream sound = AudioSystem.getAudioInputStream(name);
 			clip = AudioSystem.getClip();
 			clip.open(sound);
-			System.out.println("" + clip);
 		}
-		
 		catch(Exception e) {
 			
 		}
