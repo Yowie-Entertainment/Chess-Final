@@ -345,7 +345,7 @@ public class CheckmateCheck {
                 int kingX = ks.getXNum();
                 int kingY = ks.getYNum();
                 
-                // if the king is right and down
+                // if attacker is up and left from kingski
                 if (kingX > attackX && kingY > attackY) {
                     for (int i = attackX + 1; i < kingX; i++) {
                         attackY++;
@@ -365,7 +365,7 @@ public class CheckmateCheck {
                     }
                 }
                 
-                //if king is diag
+                //if attacker is down and left
                 if (kingX > attackX && attackY > kingY) {
                     for (int i = attackX + 1; i < kingX; i++) {
                         attackY--;
@@ -387,6 +387,7 @@ public class CheckmateCheck {
                     }
                 }
                 
+                //if 
                 if (attackX > kingX && kingY > attackY) {
                     for (int i = attackX - 1; i > kingX; i--) {
                         attackY++;
