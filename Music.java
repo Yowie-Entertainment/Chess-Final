@@ -1,3 +1,10 @@
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This is the class that controls the music of the game. It holds the methods that can start and stop the music when necessary.
+ * 
+ */
 import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

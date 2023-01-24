@@ -1,3 +1,10 @@
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This is our main class that the user runs when they want to run the game. It creates a title screen for the user.
+ * 
+ */
 import javax.swing.*;
 
 public class ChessRunner implements Runnable {

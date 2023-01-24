@@ -1,3 +1,10 @@
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This class is the class that all individual pieces inherity from. 
+ * This is the class that creates the image of the piece, and places it on the board. The board has an array of squares, which could contain pieces.
+ */
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;

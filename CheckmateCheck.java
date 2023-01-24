@@ -2,7 +2,7 @@
  * Aidan Chien, Aiden Donavan, Max Novak
  * 
  * 
- * This class is what controls 
+ * This class is what controls the checkmate detector and also the check detector to see whether each king is in check or in checkmate.
  * 
  */
 

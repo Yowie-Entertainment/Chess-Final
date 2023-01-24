@@ -1,3 +1,11 @@
+
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This is the class that controls the actual window that the board is created on. This is the window that could be opened and closed, and has buttons to go back to the title screen, or quit.
+ * 
+ */
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -109,6 +117,8 @@ public class ChessWindow {
     //this is the method that is called when checkmate has occurred
     public void checkmateOccurred (int c) {
         music.stop(aa.msuc);
+        sound.setFile(aa.winSound);
+        sound.play(aa.winSound);
 
 
         if (c == 0) {
@@ -117,7 +127,9 @@ public class ChessWindow {
                     JOptionPane.YES_NO_OPTION);
             if (butt == JOptionPane.YES_OPTION) {
                 SwingUtilities.invokeLater(new TitleScreen());
+                sound.stop(aa.winSound);
                 window.dispose();
+                
             }
         } 
 
@@ -127,6 +139,7 @@ public class ChessWindow {
                     JOptionPane.YES_NO_OPTION);
             if (butt == JOptionPane.YES_OPTION) {
                 SwingUtilities.invokeLater(new TitleScreen());
+                sound.stop(aa.winSound);
                 window.dispose();
             }
         }
