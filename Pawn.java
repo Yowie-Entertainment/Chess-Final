@@ -1,3 +1,12 @@
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This class inherits from Piece, and has a method called getMoves, which returns the specific moves a pawn can make.
+ * 
+ */
+
+
 import java.util.List;
 import java.util.LinkedList;
 

@@ -1,3 +1,11 @@
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This is the class that controls the board, and all of the logic that is called when the game is run. This is the main body of code that everything goes through.
+ * 
+ */
+
 import java.awt.Image;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;

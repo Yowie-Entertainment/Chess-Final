@@ -1,4 +1,10 @@
-
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This class inherits from Piece, and has a method called getMoves, which returns the specific moves a bishop can make.
+ * 
+ */
 
 
 import java.util.List;

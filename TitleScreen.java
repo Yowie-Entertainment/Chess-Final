@@ -1,3 +1,10 @@
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This class is what creates the title screen of our game, and has buttons that
+ * create a chesswindow to actually run the game. This is what opens first when the chessrunner is run (our main class).
+ */
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;

@@ -1,3 +1,11 @@
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This class is what controls 
+ * 
+ */
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;

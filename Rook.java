@@ -1,3 +1,12 @@
+/*
+ * Aidan Chien, Aiden Donavan, Max Novak
+ * 
+ * 
+ * This class inherits from Piece, and has a method called getMoves, which returns the specific moves a rook can make.
+ * 
+ */
+
+
 import java.util.LinkedList;
 import java.util.List;
 
