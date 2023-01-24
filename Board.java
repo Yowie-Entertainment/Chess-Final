@@ -240,6 +240,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                     this.removeMouseListener(this);
                     this.removeMouseMotionListener(this);
                     g.checkmateOccurred(0);
+                    playSoundEffect(aa.winSound);
                 } 
                 
                 //same with white
@@ -249,6 +250,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                     this.removeMouseListener(this);
                     this.removeMouseMotionListener(this);
                     g.checkmateOccurred(1);
+                    playSoundEffect(aa.winSound);
                 } 
                 
                 //switch to next players turn
