@@ -39,9 +39,6 @@ public class TitleScreen implements Runnable {
       catch (Exception e) {
       }
         
-
-
-
       final JPanel titlePanel = new JPanel();
       components.add(titlePanel);
       titlePanel.setBounds(0,0,400,400);
@@ -94,9 +91,6 @@ public class TitleScreen implements Runnable {
         
         catch (Exception e) {
         }
-
-        
-
 
         buttons.add(start);
         buttons.add(Box.createHorizontalStrut(10));

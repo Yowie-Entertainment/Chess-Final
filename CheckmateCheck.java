@@ -45,36 +45,8 @@ public class CheckmateCheck {
     }
     
     
-   
     //this method will update the board with new mWhite and mBlack  
     public void update() {
-
-        
-        // //create iterators for all the wPieces and bPieces
-        // Iterator<Piece> w = wPieces.iterator();
-        // Iterator<Piece> bIterator = bPieces.iterator();
-        
-        // int king = 0;
-        // while (w.hasNext()) {
-        //     Piece p = w.next();
-        //     if (p.getClass() == King.class) {
-        //         king++;
-        //     }
-        // }
-        // if (king == 0) {
-        //     b.getChessWindow().checkmateOccurred(1);
-        // }
-
-        // while (bIterator.hasNext()) {
-        //     Piece p = bIterator.next();
-        //     if (p.getClass() == King.class) {
-        //         king++;
-        //     }
-        // }
-        // if (king == 1) {
-        //     b.getChessWindow().checkmateOccurred(0);
-        // }
-        
         //remove all the mWhite and mBlack moves each time it is updated
         
         Iterator<Piece> wIter = wPieces.iterator();
@@ -247,10 +219,6 @@ public class CheckmateCheck {
         return evadable;
     }
     
-
-    
-    
-    
     //Helper method to determine if check can be blocked by a piece.
     private boolean block(List<Piece> attackers, Map <Square,List<Piece>> blockMoves, King k) {
         boolean blockable = false;
@@ -300,7 +268,6 @@ public class CheckmateCheck {
                 }
             }
             
-
             //same thing as above but if the king and attacker are on the same file
             if (ks.getYNum() == ts.getYNum()) {
 
@@ -340,7 +307,7 @@ public class CheckmateCheck {
                 int kingX = ks.getXNum();
                 int kingY = ks.getYNum();
                 
-                // if attacker is up and left from kingski
+                // if attacker is up and left from king
                 if (kingX > attackX && kingY > attackY) {
                     for (int i = attackX + 1; i < kingX; i++) {
                         attackY++;
@@ -382,7 +349,7 @@ public class CheckmateCheck {
                     }
                 }
                 
-                //if 
+                //if attacker is up and right
                 if (attackX > kingX && kingY > attackY) {
                     for (int i = attackX - 1; i > kingX; i--) {
                         attackY++;
@@ -404,6 +371,7 @@ public class CheckmateCheck {
                     }
                 }
                 
+                //if attacker is down and right
                 if (attackX > kingX && attackY > kingY) {
                     for (int i = attackX - 1; i > kingX; i--) {
                         attackY--;

@@ -51,8 +51,6 @@ public class Square extends JComponent {
         p.setPosition(this);
     }
     
-    
-    
     public void capture(Piece p) {
         Piece k = getOccupyingPiece();
         if (k.getColor() == 0) b.pBlack.remove(k);

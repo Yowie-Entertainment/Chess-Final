@@ -18,8 +18,6 @@ public class ChessWindow {
     
     private Board board;
     
-    
-    
     public ChessWindow() {
         Music music = new Music();
         music.setFile(aa.msuc);
@@ -38,7 +36,6 @@ public class ChessWindow {
         catch (Exception e) {
         }
 
-        
         window.setLocation(400, 0);
         
         //create the window that chess will be played on

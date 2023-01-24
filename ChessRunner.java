@@ -10,6 +10,3 @@ public class ChessRunner implements Runnable {
     }
     
 }
-//TODO: Comment classes
-//TODO: Fix checkmate and check logic
-//TODO: Fix title screen

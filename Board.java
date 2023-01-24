@@ -297,6 +297,5 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
  
     public void mouseExited(MouseEvent e) {
     }
-    
 
 }
