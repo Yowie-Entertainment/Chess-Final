@@ -17,11 +17,16 @@ public class ChessWindow {
     AudioAsset aa = new AudioAsset();
     
     private Board board;
+
+    private Music music;
+
+    private SoundEffect sound;
     
     
     
     public ChessWindow() {
-        Music music = new Music();
+        sound = new SoundEffect();
+        music = new Music();
         music.setFile(aa.msuc);
         music.play(aa.msuc);
         music.loop(aa.msuc);
@@ -106,6 +111,9 @@ public class ChessWindow {
 
     //this is the method that is called when checkmate has occurred
     public void checkmateOccurred (int c) {
+        music.stop(aa.msuc);
+
+
         if (c == 0) {
             int butt = JOptionPane.showConfirmDialog(window,"White wins!!!!! Do you want to create a new game? \n" + "Clicking \"No\" allows you to look at the board some more.",
                     "White is the winner!",
