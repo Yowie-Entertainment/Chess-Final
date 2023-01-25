@@ -21,6 +21,7 @@ public class Bishop extends Piece {
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();
         
-        return getDiagonalOccupations(board, x, y); //see "Piece" class for this method
+        //see "Piece" class for this method
+        return getDiagonalOccupations(board, x, y); 
     }
 }

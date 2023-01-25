@@ -19,11 +19,11 @@ public class Queen extends Piece {
     public List<Square> getMoves(Board b) {
         LinkedList<Square> legalMoves = new LinkedList<Square>();
         Square[][] board = b.getBoardArray();
-        
         int x = this.getPosition().getXNum();
         int y = this.getPosition().getYNum();
-        
-        int[] occups = getLinearOccupations(board, x, y); //gets occupied squares left, right, up, and down
+
+        //gets occupied squares left, right, up, and down
+        int[] occups = getLinearOccupations(board, x, y); 
         
         for (int index = occups[0]; index <= occups[1]; index++) {
             if (index != y) {
@@ -37,9 +37,11 @@ public class Queen extends Piece {
             }
         }
         
-        List<Square> bMoves = getDiagonalOccupations(board, x, y); //gets occupied squares along diagonals. See "Piece" class for this method
+        //gets occupied squares along diagonals. See "Piece" class for this method
+        List<Square> bMoves = getDiagonalOccupations(board, x, y);
         
-        legalMoves.addAll(bMoves); //adds diagonal moves to all moves
+        //adds diagonal moves to all moves
+        legalMoves.addAll(bMoves); 
         
         return legalMoves;
     }

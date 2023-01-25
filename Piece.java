@@ -38,17 +38,19 @@ public abstract class Piece {
         Piece occup = destination.getOccupyingPiece();
         
         if (occup != null) {
-            if (occup.getColor() == this.color) { //allows for capturing if the occupying piece is the enemy's
+            //allows for capturing if the occupying piece is the enemy's
+            if (occup.getColor() == this.color) { 
                 return false;
             }
             else {
                 destination.capture(this);
             }
         }
-        
-        currentSquare.removePiece(); //removes captured piece
+         //removes captured piece
+        currentSquare.removePiece();
         this.currentSquare = destination;
-        currentSquare.put(this); //and places the new piece there
+         //and places the new piece there
+        currentSquare.put(this);
         return true;
     }
     
@@ -73,7 +75,6 @@ public abstract class Piece {
     public void draw(Graphics g) {
         int x = currentSquare.getX();
         int y = currentSquare.getY();
-        
         g.drawImage(this.img, x + 10, y + 10, 100, 100,  null);
     }
     
@@ -135,17 +136,13 @@ public abstract class Piece {
                 }
             }
         }
-        
         int[] occups = {yAbove, yBelow, xLeft, xRight};
-        
         return occups;
     }
     
     //find last square in the diagonal directions
     public List<Square> getDiagonalOccupations(Square[][] board, int x, int y) {
-        
         LinkedList<Square> diagOccup = new LinkedList<Square>();
-
         //checks for occupations in 4 directions
         //North West (xNW, yNW)
         //North East (xNE, yNE)
@@ -162,7 +159,6 @@ public abstract class Piece {
         int ySE = y + 1;
 
         //needed each thing twice to find the similarity between the two, and therefore determine the square
-        
         //wont comment much, because it's very similar to LinearOccupations
         while (xNW >= 0 && yNW >= 0) {
             if (board[yNW][xNW].isOccupied()) {

@@ -19,7 +19,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 import java.net.URL;
 
-
 public class Board extends JPanel implements MouseListener, MouseMotionListener {
     
     AudioAsset aa = new AudioAsset();
@@ -30,7 +29,6 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private String whiteKnight = "wknight.png";
 	private String blackKnight = "bknight.png";
 	private String whiteRook = "wrook.png";
-	
     private String blackRook = "brook.png";
 	private String whiteKing = "wking.png";
 	private String blackKing = "bking.png";
@@ -38,29 +36,22 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private String whiteQueen = "wqueen.png";
 	private String whitePawn = "wpawn.png";
 	private String blackPawn = "bpawn.png";
-	
 	private Square[][] board;
-    
-    
     public LinkedList<Piece> pBlack;
     public LinkedList<Piece> pWhite;
     public List<Square> movable;
-    
     private boolean whiteTurn;
-
     private Piece currentPiece;
     private int currX;
     private int currY;
-    
     private CheckmateCheck cmc;
-    
 
     //creates new 8 by 8 2D array of squares to represent a board
-    // 
+    
     public Board(ChessWindow game) {
         g = game;
-        
         board = new Square[8][8];
+
         //List of all of black and white's pieces
         pBlack = new LinkedList<Piece>();
         pWhite = new LinkedList<Piece>();
@@ -73,8 +64,6 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         //create the new squares with their respective colors
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-
-
                 if (((x % 2) == 0 && (y % 2) == 0) || ((x % 2) == 1 && (y % 2) == 1)) {
                     board[x][y] = new Square(this, true, y, x);
                     this.add(board[x][y]);
@@ -90,13 +79,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         this.setMinimumSize(this.getPreferredSize());
         this.setSize(new Dimension(960, 960));
         initializePieces();
-
         this.setPreferredSize(new Dimension(960, 960));
         this.setMaximumSize(new Dimension(960, 960));
-        
-
         whiteTurn = true;
-
     }
 
     public void playSoundEffect(URL url) {
@@ -115,6 +100,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             board[1][x].put(new Pawn(0, board[1][x], blackPawn));
             board[6][x].put(new Pawn(1, board[6][x], whitePawn));
         }
+
         board[0][2].put(new Bishop(0, board[0][2], blackBishop));
         board[0][5].put(new Bishop(0, board[0][5], blackBishop));
         board[7][2].put(new Bishop(1, board[7][2], whiteBishop));
@@ -125,6 +111,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         board[0][7].put(new Rook(0, board[0][7], blackRook));
         board[7][0].put(new Rook(1, board[7][0], whiteRook));
         board[7][7].put(new Rook(1, board[7][7], whiteRook));
+        
         //these are set as variables so they can used to create a checkmatecheck object
         King kingBlack = new King(0, board[0][4], blackKing);
         King kingWhite = new King(1, board[7][4], whiteKing);
@@ -232,8 +219,6 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 currentPiece.move(sq);
                 cmc.update(); //4
 
-                
-
                 if (cmc.whiteInCheck() || cmc.blackInCheck()) {
                     playSoundEffect(aa.checkSound);
                 }
@@ -276,36 +261,28 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 currentPiece = null;
             }
         }
-
         repaint();
     }
 
     //drags the pieces with the mouse
     public void mouseDragged(MouseEvent e) {
-        
         currX = e.getX() - 24;
         currY = e.getY() - 24;
-
         repaint();
-        
     }
-    
 
- 
     //these methods are necessary but do nothing in the game
+    public void mouseExited(MouseEvent e) {
+    }
+
     public void mouseMoved(MouseEvent e) {
     }
-
 
     public void mouseClicked(MouseEvent e) {
     }
 
-
     public void mouseEntered(MouseEvent e) {
     }
 
- 
-    public void mouseExited(MouseEvent e) {
-    }
 
 }

@@ -14,6 +14,7 @@ public class SoundEffect {
 	
 	Clip clip;
 	
+	//sets file for sound effect
 	public void setFile(URL name) {
 		
 		try {
@@ -26,16 +27,14 @@ public class SoundEffect {
 		}
 	}
 	
+	//plays sound effect
 	public void play(URL name) {
 		
 		clip.setFramePosition(0);
 		clip.start();
 	}
 	
-	public void loop(URL name) {
-		
-		clip.loop(Clip.LOOP_CONTINUOUSLY);
-	}
+	//stops the sound effect
 	public void stop(URL name) {
 		
 		clip.stop();

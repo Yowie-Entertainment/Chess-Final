@@ -28,19 +28,22 @@ public class King extends Piece {
             for (int index2 = 1; index2 > -2; index2--) {
                 if(!(index == 0 && index2 == 0)) {
                     try {
-                        if(!board[y + index2][x + index].isOccupied() || 
-                                board[y + index2][x + index].getOccupyingPiece().getColor() 
-                                != this.getColor()) { //basically if the square is not occupied or if is, but by an enemy piece
-                            legalMoves.add(board[y + index2][x + index]); //add it to the legal moves
+                        //basically if the square is not occupied or if is, but by an enemy piece
+                        if(!board[y + index2][x + index].isOccupied() || board[y + index2][x + index].getOccupyingPiece().getColor() 
+                        != this.getColor()) { 
+                            //add it to the legal moves
+                            legalMoves.add(board[y + index2][x + index]); 
                         }
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } 
+                    
+                    catch (ArrayIndexOutOfBoundsException e) {
                         continue;
                     }
                 }
             }
         }
-        
-        return legalMoves; //and return it
+        //and return it
+        return legalMoves; 
     }
 
 }

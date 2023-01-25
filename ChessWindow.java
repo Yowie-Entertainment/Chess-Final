@@ -11,23 +11,16 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 
 public class ChessWindow {
 
     //create the window and create a board
     private JFrame window;
-
     AudioAsset aa = new AudioAsset();
-    
     private Board board;
-
     private Music music;
-
     private SoundEffect sound;
     
     public ChessWindow() {
@@ -36,34 +29,26 @@ public class ChessWindow {
         music.setFile(aa.msuc);
         music.play(aa.msuc);
         music.loop(aa.msuc);
-        
         window = new JFrame("Yowie Chess");
         
-
         //set the icon image to our company logo
         try {
             Image whiteImg = ImageIO.read(getClass().getResource("yo.png"));
             window.setIconImage(whiteImg);
         } 
-        
         catch (Exception e) {
+        
         }
 
         window.setLocation(400, 0);
-        
         //create the window that chess will be played on
         window.setLayout(new BorderLayout(20,20));
-        
         this.board = new Board(this);
-        
         window.add(board, BorderLayout.CENTER);
-        
         window.add(buttons(), BorderLayout.SOUTH);
-        
         window.setMinimumSize(window.getPreferredSize());
         window.setSize(window.getPreferredSize()); 
         window.setResizable(true);
-    
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -71,13 +56,11 @@ public class ChessWindow {
     
     //create the buttons on the bottom of the screen
     private JPanel buttons() {
-        
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(1, 3, 10, 0));
         
         //pressing quit will create another small window asking if they really want to quit
         JButton quit = new JButton("Quit");
-        
         quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int butt = JOptionPane.showConfirmDialog(window,"Do you really want to quit?","Confirm quit", JOptionPane.YES_NO_OPTION);
@@ -103,9 +86,7 @@ public class ChessWindow {
         //add both of these buttons to buttons JPanel 
         buttons.add(nGame);
         buttons.add(quit);
-        
         buttons.setPreferredSize(buttons.getMinimumSize());
-        
         return buttons;
     }
     
@@ -117,9 +98,6 @@ public class ChessWindow {
     //this is the method that is called when checkmate has occurred
     public void checkmateOccurred (int c) {
         music.stop(aa.msuc);
-        sound.setFile(aa.winSound);
-        sound.play(aa.winSound);
-
 
         if (c == 0) {
             int butt = JOptionPane.showConfirmDialog(window,"White wins!!!!! Do you want to create a new game? \n" + "Clicking \"No\" allows you to look at the board some more.",
@@ -127,7 +105,6 @@ public class ChessWindow {
                     JOptionPane.YES_NO_OPTION);
             if (butt == JOptionPane.YES_OPTION) {
                 SwingUtilities.invokeLater(new TitleScreen());
-                sound.stop(aa.winSound);
                 window.dispose();
                 
             }
@@ -139,7 +116,6 @@ public class ChessWindow {
                     JOptionPane.YES_NO_OPTION);
             if (butt == JOptionPane.YES_OPTION) {
                 SwingUtilities.invokeLater(new TitleScreen());
-                sound.stop(aa.winSound);
                 window.dispose();
             }
         }

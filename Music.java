@@ -14,6 +14,7 @@ public class Music {
 	
 	Clip clip;
 
+	//sets file
 	public void setFile(URL name) {
 		
 		try {
@@ -28,16 +29,20 @@ public class Music {
 		}
 	}
 	
+	//starts playing clip
 	public void play(URL name) {
 		
 		clip.setFramePosition(0);
 		clip.start();
 	}
 	
+	//loops the clip
 	public void loop(URL name) {
 		
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
+
+	//stops the clip
 	public void stop(URL name) {
 		
 		clip.stop();

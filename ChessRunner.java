@@ -3,7 +3,7 @@
  * 
  * 
  * This is our main class that the user runs when they want to run the game. It creates a title screen for the user.
- * 
+ * Is contains the main method for our project.
  */
 import javax.swing.*;
 
